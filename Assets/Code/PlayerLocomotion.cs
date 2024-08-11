@@ -42,6 +42,7 @@ namespace HQ {
             moveDirection = cameraObject.forward * inputHandler.vertical;
             moveDirection += cameraObject.right * inputHandler.horizontal;
             moveDirection.Normalize();
+            moveDirection.y = 0;
 
             float speed = movementspeed;
             moveDirection *= speed;
