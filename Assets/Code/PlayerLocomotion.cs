@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace HQ {
@@ -21,7 +22,11 @@ namespace HQ {
         [SerializeField]
         float movementspeed = 5;
         [SerializeField]
+        float sprintSpeed = 7;
+        [SerializeField]
         float rotationspeed = 10;
+
+        public bool IsSprinting;
 
         void Start()
         {
@@ -37,24 +42,10 @@ namespace HQ {
         {
             float delta = Time.deltaTime;
 
+            IsSprinting = inputHandler.b_input;
             inputHandler.TickInput(delta);
-
-            moveDirection = cameraObject.forward * inputHandler.vertical;
-            moveDirection += cameraObject.right * inputHandler.horizontal;
-            moveDirection.Normalize();
-            moveDirection.y = 0;
-
-            float speed = movementspeed;
-            moveDirection *= speed;
-
-            Vector3 projectVelocity = Vector3.ProjectOnPlane(moveDirection, normalVec);
-            rigidbody.velocity = projectVelocity;
-
-            animatorHandler.UpdateAnimatorValue(inputHandler.moveAmount, 0);
-
-            if (animatorHandler.canRotate) {
-                HandleRotation(delta);
-            }
+            HandleMovement(delta);
+            HandleRollandSprint(delta);
         }
 
         #region movement
@@ -80,6 +71,58 @@ namespace HQ {
             Quaternion targetRotation =  Quaternion.Slerp(myTransform.rotation, tr, rs * delta);
 
             myTransform.rotation = targetRotation;
+        }
+
+        public void HandleMovement (float delta)
+        {
+            if (inputHandler.RollFlag) 
+                return;
+
+            moveDirection = cameraObject.forward * inputHandler.vertical;
+            moveDirection += cameraObject.right * inputHandler.horizontal;
+            moveDirection.Normalize();
+            moveDirection.y = 0;
+
+            float speed = movementspeed;
+
+            if (inputHandler.sprintFlag) {
+                speed = sprintSpeed;
+                IsSprinting = true;
+                moveDirection *= speed;
+            }
+            else {
+                moveDirection *= speed;
+            }
+
+            Vector3 projectedvelocity = Vector3.ProjectOnPlane(moveDirection, normalVec);
+            rigidbody.velocity = projectedvelocity;
+
+            animatorHandler.UpdateAnimatorValue(inputHandler.moveAmount, 0, IsSprinting);
+
+            if(animatorHandler.canRotate) {
+                HandleRotation(delta);
+            }
+        }
+    
+        public void HandleRollandSprint(float delta)
+        {
+            if(animatorHandler.anim.GetBool("IsInteract")) 
+                return;
+
+            if (inputHandler.RollFlag) {
+                moveDirection = cameraObject.forward * inputHandler.vertical;
+                moveDirection += cameraObject.right * inputHandler.horizontal;
+
+                if(inputHandler.moveAmount > 0) {
+                    animatorHandler.PlayTargetAnimation("Roll", true);
+                    moveDirection.y = 0;
+                    Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                    myTransform.rotation = rollRotation;
+                }
+                else {
+                    animatorHandler.PlayTargetAnimation("Stepback", true);
+                }
+            }
         }
         #endregion
     }

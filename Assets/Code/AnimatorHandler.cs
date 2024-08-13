@@ -7,6 +7,8 @@ namespace HQ
     public class AnimatorHandler : MonoBehaviour
     {
         public Animator anim;
+        public InputHandler inputHandler;
+        public Player PlayerLocomotion;
         int vertical;
         int horizontal;
         public bool canRotate;
@@ -14,11 +16,13 @@ namespace HQ
         public void Initialize()
         {
             anim = GetComponent<Animator>();
+            inputHandler = GetComponentInParent<InputHandler>();
+            PlayerLocomotion = GetComponentInParent<Player>();
             vertical = Animator.StringToHash("Vertical");
             horizontal = Animator.StringToHash("Horizontal");
         }
 
-        public void UpdateAnimatorValue(float verticalMovement,float horizontalMovement)
+        public void UpdateAnimatorValue(float verticalMovement,float horizontalMovement, bool IsSprinting)
         {
             #region Vertical
             float v =0;
@@ -59,8 +63,20 @@ namespace HQ
             }
             #endregion
 
+            if (IsSprinting) {
+                v = 2;
+                h = horizontalMovement;
+            }
+            
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
+        }
+
+        public void PlayTargetAnimation(string targetAnim, bool isInteracting)
+        {
+            anim.applyRootMotion = isInteracting;
+            anim.SetBool("IsInteract", isInteracting);
+            anim.CrossFade(targetAnim, 0.2f);
         }
 
         public void CanRotate()
@@ -71,6 +87,19 @@ namespace HQ
         public void stopRotation()
         {
             canRotate = false;
+        }
+
+        private void OnAnimatorMove()
+        {
+            if (inputHandler.isInteracting == false)
+                return;
+
+            float delta = Time.deltaTime;
+            PlayerLocomotion.rigidbody.drag = 0;
+            Vector3 deltaposition = anim.deltaPosition;
+            deltaposition.y = 0;
+            Vector3 velocity = deltaposition / delta;
+            PlayerLocomotion.rigidbody.velocity = velocity;
         }
     }
 }

@@ -14,6 +14,11 @@ namespace HQ
         public float moveAmount;
         public float mouseX;
         public float mouseY;
+        public bool b_input;
+        public bool RollFlag;
+        public bool sprintFlag;
+        public float rollInputTimer;
+        public bool isInteracting;
 
         PlayerControl inputAction;
         CameraHandler cameraHandler;
@@ -53,6 +58,7 @@ namespace HQ
         public void TickInput(float delta)
         {
             moveInput(delta);
+            HandleRollInput(delta);
         }
 
         private void moveInput(float delta)
@@ -62,6 +68,25 @@ namespace HQ
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
             mouseX = cameraInput.x;
             mouseY = cameraInput.y;
+        }
+    
+        private void HandleRollInput(float delta)
+        {
+            b_input = inputAction.PlayerActions.Roll.inProgress;
+
+            if(b_input) {
+                rollInputTimer += delta;
+                sprintFlag = true;
+            }
+            else {
+                if (rollInputTimer > 0 && rollInputTimer < 0.5f)
+                {
+                    sprintFlag = false;
+                    RollFlag = true;
+                }
+
+                rollInputTimer = 0;
+            }
         }
     }
 }
