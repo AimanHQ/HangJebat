@@ -6,6 +6,7 @@ using UnityEngine;
 namespace HQ {
     public class Player : MonoBehaviour
     {
+        PlayerManager playerManager;
         Transform cameraObject;
         InputHandler inputHandler;
         Vector3 moveDirection;
@@ -18,7 +19,7 @@ namespace HQ {
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
-        [Header("Stats")]
+        [Header("Movement Stats")]
         [SerializeField]
         float movementspeed = 5;
         [SerializeField]
@@ -26,26 +27,15 @@ namespace HQ {
         [SerializeField]
         float rotationspeed = 10;
 
-        public bool IsSprinting;
-
         void Start()
         {
+            playerManager = GetComponent<PlayerManager>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
-        }
-
-        public void Update()
-        {
-            float delta = Time.deltaTime;
-
-            IsSprinting = inputHandler.b_input;
-            inputHandler.TickInput(delta);
-            HandleMovement(delta);
-            HandleRollandSprint(delta);
         }
 
         #region movement
@@ -87,7 +77,7 @@ namespace HQ {
 
             if (inputHandler.sprintFlag) {
                 speed = sprintSpeed;
-                IsSprinting = true;
+                playerManager.IsSprinting = true;
                 moveDirection *= speed;
             }
             else {
@@ -97,7 +87,7 @@ namespace HQ {
             Vector3 projectedvelocity = Vector3.ProjectOnPlane(moveDirection, normalVec);
             rigidbody.velocity = projectedvelocity;
 
-            animatorHandler.UpdateAnimatorValue(inputHandler.moveAmount, 0, IsSprinting);
+            animatorHandler.UpdateAnimatorValue(inputHandler.moveAmount, 0, playerManager.IsSprinting);
 
             if(animatorHandler.canRotate) {
                 HandleRotation(delta);
