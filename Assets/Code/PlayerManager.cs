@@ -51,7 +51,8 @@ namespace HQ
         {
             inputHandler.RollFlag = false;
             inputHandler.sprintFlag = false;
-            IsSprinting = inputHandler.b_input;
+            inputHandler.rb_input = false;
+            inputHandler.rt_input = false;
         }
     }
 }

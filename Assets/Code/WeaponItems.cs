@@ -9,5 +9,9 @@ namespace HQ
     {
         public GameObject prefabModel;
         public bool isUnarmed;
+
+        [Header ("One handed attack animation")]
+        public string Oh_Light_Attack1;
+        public string Oh_Heavy_Attack1;
     }
 }

@@ -15,15 +15,24 @@ namespace HQ
         public float mouseX;
         public float mouseY;
         public bool b_input;
+        public bool rb_input;
+        public bool rt_input;
         public bool RollFlag;
         public bool sprintFlag;
         public float rollInputTimer;
         PlayerControl inputAction;
+        PlayerAttacker playerAttacker;
+        PlayerInventory playerInventory;
         CameraHandler cameraHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
 
+        private void Awake()
+        {
+            playerAttacker =  GetComponent<PlayerAttacker>();
+            playerInventory = GetComponent<PlayerInventory>();
+        }
         public void OnEnable()
         {
             if(inputAction == null) {
@@ -44,6 +53,7 @@ namespace HQ
         {
             moveInput(delta);
             HandleRollInput(delta);
+            HandleAttackInput(delta);
         }
 
         private void moveInput(float delta)
@@ -71,6 +81,21 @@ namespace HQ
                 }
 
                 rollInputTimer = 0;
+            }
+        }
+    
+        private void HandleAttackInput(float delta)
+        {
+            inputAction.PlayerActions.RB.performed += i => rb_input = true;
+            inputAction.PlayerActions.RT.performed += i => rt_input = true;
+
+            //RB input handle right hand weapon light attack
+            if(rb_input) {
+                playerAttacker.HandleLightAttack(playerInventory.rightweapon);
+            }
+
+            if (rt_input) {
+                playerAttacker.HandleHeavyAttack(playerInventory.rightweapon);
             }
         }
     }

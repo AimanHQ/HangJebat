@@ -75,13 +75,18 @@ namespace HQ {
 
             float speed = movementspeed;
 
-            if (inputHandler.sprintFlag) {
+            if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5f) {
                 speed = sprintSpeed;
                 playerManager.IsSprinting = true;
                 moveDirection *= speed;
             }
             else {
+                if (inputHandler.moveAmount < 0.5f) {
+                    playerManager.IsSprinting = false;
+                }
+                else {
                 moveDirection *= speed;
+                }
             }
 
             Vector3 projectedvelocity = Vector3.ProjectOnPlane(moveDirection, normalVec);
