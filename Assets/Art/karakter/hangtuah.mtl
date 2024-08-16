@@ -1,0 +1,12 @@
+# Blender 4.2.0 MTL File: 'quit.blend'
+# www.blender.org
+
+newmtl Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/Gigabyte/Downloads/500d6b63-0016-4cca-bcc1-ea01c0859287/texture_diffuse.png
