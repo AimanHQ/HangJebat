@@ -15,6 +15,8 @@ namespace HQ
         public bool isInteracting;
         [Header ("Player Flags")]
         public bool IsSprinting;
+        public bool isInAir;
+        public bool isGrounded;
 
 
         private void Awake()
@@ -36,6 +38,7 @@ namespace HQ
             inputHandler.TickInput(delta);
             player.HandleMovement(delta);
             player.HandleRollandSprint(delta);
+            player.HandleFalling(delta, player.moveDirection);
         }
 
         private void FixedUpdate()
@@ -53,6 +56,10 @@ namespace HQ
             inputHandler.sprintFlag = false;
             inputHandler.rb_input = false;
             inputHandler.rt_input = false;
+
+            if (isInAir) {
+                player.inAirTimer = player.inAirTimer + Time.deltaTime;
+            }
         }
     }
 }

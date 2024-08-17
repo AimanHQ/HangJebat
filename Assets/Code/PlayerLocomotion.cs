@@ -9,7 +9,7 @@ namespace HQ {
         PlayerManager playerManager;
         Transform cameraObject;
         InputHandler inputHandler;
-        Vector3 moveDirection;
+        public Vector3 moveDirection;
 
         [HideInInspector]
         public Transform myTransform;
@@ -19,6 +19,15 @@ namespace HQ {
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
+        [Header("Ground/air detect stats")]
+        [SerializeField] float grounddetectraystartpoint = 0.5f;
+        [SerializeField] float minimumdistancetofall = 1f;
+        [SerializeField] float grounddirectiontraydistance = 0.2f;
+        LayerMask ignoreforgroundcheck;
+        public float inAirTimer;
+
+
+
         [Header("Movement Stats")]
         [SerializeField]
         float movementspeed = 5;
@@ -26,6 +35,7 @@ namespace HQ {
         float sprintSpeed = 7;
         [SerializeField]
         float rotationspeed = 10;
+        [SerializeField] float fallingspeed = 45;
 
         void Start()
         {
@@ -36,6 +46,9 @@ namespace HQ {
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
+
+            playerManager.isGrounded = true;
+            ignoreforgroundcheck = ~(1 << 8 | 1 << 11);
         }
 
         #region movement
@@ -72,6 +85,9 @@ namespace HQ {
             moveDirection += cameraObject.right * inputHandler.horizontal;
             moveDirection.Normalize();
             moveDirection.y = 0;
+
+            if (playerManager.isInteracting)
+                return;
 
             float speed = movementspeed;
 
@@ -119,6 +135,87 @@ namespace HQ {
                 }
             }
         }
+        
+        public void HandleFalling(float delta, Vector3 moveDirection)
+        {
+            playerManager.isGrounded =false;
+            RaycastHit hit;
+            Vector3 origin = myTransform.position;
+            origin.y += grounddetectraystartpoint;
+
+            if (Physics.Raycast(origin, myTransform.forward,out hit, 0.4f))
+            {
+                moveDirection = Vector3.zero;
+            }
+            if (playerManager.isInAir)
+            {
+                rigidbody.AddForce(-Vector3.up * fallingspeed);
+                rigidbody.AddForce(moveDirection * fallingspeed / 10f);
+            }
+
+            Vector3 dir = moveDirection;
+            dir.Normalize();
+            origin = origin + dir * grounddirectiontraydistance;
+
+            targetPos = myTransform.position;
+
+            Debug.DrawRay(origin, -Vector3.up * minimumdistancetofall, Color.red, 0.1f, false);
+            if(Physics.Raycast(origin, -Vector3.up, out hit, minimumdistancetofall, ignoreforgroundcheck))
+            {
+                normalVec = hit.normal;
+                Vector3 tp = hit.point;
+                playerManager.isGrounded = true;
+                targetPos.y = tp.y;
+
+                if (playerManager.isInAir) 
+                {
+                    if (inAirTimer > 0.5f) {
+                        Debug.Log("you were in air" + inAirTimer);
+                        inAirTimer = 0;
+                    }
+                    else {
+                        animatorHandler.PlayTargetAnimation("New State", false);
+                        inAirTimer = 0;
+                    }
+
+                    playerManager.isInAir = false;   
+                }
+            }
+            else 
+            {
+                if (playerManager.isGrounded)
+                {
+                    playerManager.isGrounded = false;
+                }
+                if (playerManager.isInAir == false) 
+                {
+                    if(playerManager.isInteracting == false) {
+                        
+                    }
+                    Vector3 vel = rigidbody.velocity;
+                    vel.Normalize();
+                    rigidbody.velocity = vel * (movementspeed / 2);
+                    playerManager.isInAir = true;
+
+                }
+            }
+            if (playerManager.isGrounded)
+            {
+                if(playerManager.isInteracting || inputHandler.moveAmount > 0) {
+                    myTransform.position = Vector3.Lerp(myTransform.position, targetPos, Time.deltaTime);
+                }
+                else {
+                    myTransform.position = targetPos;
+                }
+            }
+            if (playerManager.isInteracting || inputHandler.moveAmount > 0) {
+                myTransform.position = Vector3.Lerp(myTransform.position, targetPos, Time.deltaTime / 0.1f);
+            }
+            else {
+                myTransform.position = targetPos;
+            }
+        }
+        
         #endregion
     }
 }
