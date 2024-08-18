@@ -9,6 +9,9 @@ namespace HQ
         WeaponHolderSlot lefthandslot;
         WeaponHolderSlot righthandslot;
 
+        DamageCollider lefthanddamagecollider;
+        DamageCollider righthanddamagecollider;
+
         private void Awake()
         {
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
@@ -29,11 +32,45 @@ namespace HQ
             if (isleft) 
             {
                 lefthandslot.LoadWeaponModel(weaponItems);
+                LoadLeftweapondamagecollider();
             }
             else 
             {
                 righthandslot.LoadWeaponModel(weaponItems);
+                Loadrightweapondamagecollider();
             }
         }
+
+        #region Handle weapon dmg collider
+        private void LoadLeftweapondamagecollider()
+        {
+            lefthanddamagecollider = lefthandslot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+        }
+
+        private void Loadrightweapondamagecollider()
+        {
+            righthanddamagecollider = righthandslot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+        }
+
+        public void Openrightdamagecollider()
+        {
+            righthanddamagecollider.EnableDamageCollider();
+        }
+
+        public void Openleftdamagecollider()
+        {
+            lefthanddamagecollider.EnableDamageCollider();
+        }
+
+        public void Closerightdamagecollider()
+        {
+            righthanddamagecollider.DisableDamageCollider();
+        }
+
+        public void Closeleftdamagecollider()
+        {
+            lefthanddamagecollider.DisableDamageCollider();
+        }
+        #endregion
     }
 }

@@ -92,6 +92,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6410986662589033024}
+  - component: {fileID: 5888040298724067189}
+  - component: {fileID: 5037386424409871565}
   m_Layer: 0
   m_Name: kris
   m_TagString: Untagged
@@ -116,6 +118,39 @@ Transform:
   - {fileID: 8143166114071084501}
   m_Father: {fileID: 7961432097597325046}
   m_LocalEulerAnglesHint: {x: -92.024, y: 0, z: 0}
+--- !u!65 &5888040298724067189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783278927388691073}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 8.77}
+  m_Center: {x: 1.54, y: 0, z: 1.02}
+--- !u!114 &5037386424409871565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783278927388691073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a43628f545537418449b52e28fbd01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2835023274972534913
 GameObject:
   m_ObjectHideFlags: 0
