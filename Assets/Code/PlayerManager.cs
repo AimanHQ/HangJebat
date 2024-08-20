@@ -56,6 +56,7 @@ namespace HQ
             inputHandler.sprintFlag = false;
             inputHandler.rb_input = false;
             inputHandler.rt_input = false;
+            inputHandler.rs = false;
 
             if (isInAir) {
                 player.inAirTimer = player.inAirTimer + Time.deltaTime;

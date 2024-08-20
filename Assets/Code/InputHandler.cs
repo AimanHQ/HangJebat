@@ -17,6 +17,7 @@ namespace HQ
         public bool b_input;
         public bool rb_input;
         public bool rt_input;
+        public bool rs;
         public bool RollFlag;
         public bool sprintFlag;
         public float rollInputTimer;
@@ -54,6 +55,7 @@ namespace HQ
             moveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
+            HandleQuickSlotInput();
         }
 
         private void moveInput(float delta)
@@ -96,6 +98,15 @@ namespace HQ
 
             if (rt_input) {
                 playerAttacker.HandleHeavyAttack(playerInventory.rightweapon);
+            }
+        }
+
+        private void HandleQuickSlotInput()
+        {
+            inputAction.PlayerActions.RS.performed += i => rs =true; 
+
+            if (rs) {
+                playerInventory.ChangeRightWeapon();
             }
         }
     }
