@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace HQ {
     public class Player : MonoBehaviour
@@ -214,6 +215,11 @@ namespace HQ {
             else {
                 myTransform.position = targetPos;
             }
+        }
+
+        public void OnMove(InputValue value)
+        {
+            moveDirection = value.Get<Vector2>();
         }
         
         #endregion
