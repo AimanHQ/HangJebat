@@ -13,5 +13,10 @@ namespace HQ
         [Header ("One handed attack animation")]
         public string Oh_Light_Attack1;
         public string Oh_Heavy_Attack1;
+
+        [Header ("Stamina Cost")]
+        public int baseStamina;
+        public float lightAttackMultiplier;
+        public float HeavyAttackMultiplier;
     }
 }

@@ -11,9 +11,14 @@ namespace HQ
 
         DamageCollider lefthanddamagecollider;
         DamageCollider righthanddamagecollider;
+        public WeaponItems attackingweapon;
+
+        PlayerStats playerStats;
 
         private void Awake()
         {
+            playerStats = GetComponentInParent<PlayerStats>();
+
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in WeaponHolderSlots) 
             {
@@ -70,6 +75,18 @@ namespace HQ
         public void Closeleftdamagecollider()
         {
             lefthanddamagecollider.DisableDamageCollider();
+        }
+        #endregion
+   
+        #region handle weapon stamina
+        public void DrainStaminaLightAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingweapon.baseStamina * attackingweapon.lightAttackMultiplier));
+        }
+
+        public void DrainStaminaHeavyAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingweapon.baseStamina * attackingweapon.HeavyAttackMultiplier));
         }
         #endregion
     }
