@@ -165,6 +165,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""G"",
+                    ""type"": ""Button"",
+                    ""id"": ""7740eb2d-f330-46a4-b56c-7933a0649dd0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +231,17 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""action"": ""RS"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fa7f625-d0f3-4eff-a613-d04d1619f469"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""G"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -238,6 +258,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_PlayerActions_RB = m_PlayerActions.FindAction("RB", throwIfNotFound: true);
         m_PlayerActions_RT = m_PlayerActions.FindAction("RT", throwIfNotFound: true);
         m_PlayerActions_RS = m_PlayerActions.FindAction("RS", throwIfNotFound: true);
+        m_PlayerActions_G = m_PlayerActions.FindAction("G", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -357,6 +378,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_RB;
     private readonly InputAction m_PlayerActions_RT;
     private readonly InputAction m_PlayerActions_RS;
+    private readonly InputAction m_PlayerActions_G;
     public struct PlayerActionsActions
     {
         private @PlayerControl m_Wrapper;
@@ -365,6 +387,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         public InputAction @RB => m_Wrapper.m_PlayerActions_RB;
         public InputAction @RT => m_Wrapper.m_PlayerActions_RT;
         public InputAction @RS => m_Wrapper.m_PlayerActions_RS;
+        public InputAction @G => m_Wrapper.m_PlayerActions_G;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +409,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @RS.started += instance.OnRS;
             @RS.performed += instance.OnRS;
             @RS.canceled += instance.OnRS;
+            @G.started += instance.OnG;
+            @G.performed += instance.OnG;
+            @G.canceled += instance.OnG;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -402,6 +428,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @RS.started -= instance.OnRS;
             @RS.performed -= instance.OnRS;
             @RS.canceled -= instance.OnRS;
+            @G.started -= instance.OnG;
+            @G.performed -= instance.OnG;
+            @G.canceled -= instance.OnG;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -430,5 +459,6 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnRB(InputAction.CallbackContext context);
         void OnRT(InputAction.CallbackContext context);
         void OnRS(InputAction.CallbackContext context);
+        void OnG(InputAction.CallbackContext context);
     }
 }
