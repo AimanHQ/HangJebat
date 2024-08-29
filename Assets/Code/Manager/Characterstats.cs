@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HQ
 {
-    public class Characterstat : MonoBehaviour
+    public class Characterstats : MonoBehaviour
     {
 
         public int healthlevel = 10;

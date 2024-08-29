@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HQ
 {
-    public class EnemyStats : Characterstat
+    public class EnemyStats : Characterstats
     {
 
         Animator animator;

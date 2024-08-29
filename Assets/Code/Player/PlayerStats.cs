@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HQ
 {
-    public class PlayerStats : Characterstat
+    public class PlayerStats : Characterstats
     {
         public HealthBar healthBar;
         public StaminaBar staminaBar;
