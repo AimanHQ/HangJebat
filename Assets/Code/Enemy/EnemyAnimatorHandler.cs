@@ -6,21 +6,21 @@ namespace HQ
 {
     public class EnemyAnimatorHandler : AnimatorManager
     {
-        Enemy enemylocmotion;
+        EnemyManager enemyManager;
         private void Awake()
         {
             anim = GetComponent<Animator>();
-            enemylocmotion = GetComponentInParent<Enemy>();
+            enemyManager = GetComponentInParent<EnemyManager>();
         }
 
         private void OnAnimatorMove()
         {
             float delta = Time.deltaTime;
-            enemylocmotion.enemyRB.drag = 0;
+            enemyManager.enemyRB.drag = 0;
             Vector3 deltaposition = anim.deltaPosition;
             deltaposition.y = 0;
             Vector3 velocity = deltaposition / delta;
-            enemylocmotion.enemyRB.velocity = velocity ;
+            enemyManager.enemyRB.velocity = velocity ;
         }
     }
 }

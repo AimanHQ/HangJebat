@@ -5180,14 +5180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b909feadb14c9db4ca3ed99bd617d787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRB: {fileID: 188031219}
-  detectionLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  distanceFromTarget: 0
-  stoppingDistance: 1
-  yOffset: 0.1
-  rotationspeed: 15
 --- !u!114 &188031223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5202,9 +5194,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: {fileID: 1587068850}
   currentTarget: {fileID: 0}
+  NavMeshAgent: {fileID: 384308153}
+  enemyRB: {fileID: 188031219}
   isPerfomingAction: 0
+  distanceFromTarget: 0
+  yOffset: 15
+  rotationspeed: 25
+  maximumAttackRange: 1.5
   maximumDetectionAngle: 50
   MinimumDetectionAngle: -50
+  viewableAngle: 0
   detectionRadius: 20
   currentRecoveryTime: 0
 --- !u!114 &188031224
@@ -30688,6 +30687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a763570b5cd7e7045b1bbdbd391b0734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 1973387346}
 --- !u!4 &1422045277
 Transform:
   m_ObjectHideFlags: 0
@@ -35399,6 +35399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd81fd42caae92d449df58686c91d03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatStanceState: {fileID: 1973387346}
+  enemyattacks:
+  - {fileID: 11400000, guid: 100097c835f29e04ab9965889ddb3e14, type: 2}
+  - {fileID: 11400000, guid: d637013c8baff9045800eda611e56440, type: 2}
+  currentAttack: {fileID: 0}
 --- !u!4 &1646350484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4289867025015806, guid: 3eca78ec7743725459bcb31f3c42bbdd,
@@ -43509,6 +43514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a0c9e9f0cbde7498a50e8ae67b72bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackStates: {fileID: 1644188403}
+  persueTargetState: {fileID: 1422045276}
 --- !u!1001 &1974787096
 PrefabInstance:
   m_ObjectHideFlags: 0
