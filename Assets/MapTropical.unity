@@ -221,17 +221,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.395
+      value: 0.394989
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2180421
+      value: -1.2180405
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.48686412
+      value: -0.48687744
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
@@ -1006,10 +1006,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 172940192}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de2721dcf44380c4fa0c7bf628df208d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 491738711}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
       insertIndex: -1
@@ -5192,19 +5188,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fe5c800b3e153448ff7a41086a76ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 1587068850}
+  currentState: {fileID: 306774132}
   currentTarget: {fileID: 0}
   NavMeshAgent: {fileID: 384308153}
   enemyRB: {fileID: 188031219}
   isPerfomingAction: 0
-  distanceFromTarget: 0
-  yOffset: 15
-  rotationspeed: 25
-  maximumAttackRange: 1.5
+  isInteracting: 0
+  rotationspeed: 15
+  maximumAttackRange: 0.5
   maximumDetectionAngle: 50
   MinimumDetectionAngle: -50
-  viewableAngle: 0
-  detectionRadius: 20
+  detectionRadius: 50
   currentRecoveryTime: 0
 --- !u!114 &188031224
 MonoBehaviour:
@@ -7643,6 +7637,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e5f8758ab584414298eed25ed59b801, type: 3}
+--- !u!1 &306774131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306774133}
+  - component: {fileID: 306774132}
+  m_Layer: 0
+  m_Name: Ambush States
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &306774132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306774131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbfcee3a7b69e7d48833d6e44a2a9b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSleeping: 1
+  detectionRadius: 2
+  SleepAnimation: Idle
+  wakeAnimation: Run
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  persueTargetState: {fileID: 1422045276}
+--- !u!4 &306774133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306774131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 530154610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &308245223 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4565415428300272, guid: 9e5f8758ab584414298eed25ed59b801,
@@ -9658,7 +9704,7 @@ Transform:
   m_GameObject: {fileID: 384308151}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36, y: -0.71, z: -0.5}
+  m_LocalPosition: {x: 0.395, y: -1.2180421, z: -0.48686412}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9673,7 +9719,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 384308151}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.95
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -12254,28 +12300,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4166395}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &491738711
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 491738709}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!95 &491738712 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: de2721dcf44380c4fa0c7bf628df208d,
@@ -12294,7 +12318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f4e53e71383e64987022b40ad6184d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 5866666020295347411}
+  anim: {fileID: 491738712}
 --- !u!4 &493823253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4074543031912262, guid: e409fe8f8cde0bb48a145edef930645e,
@@ -12873,6 +12897,7 @@ Transform:
   - {fileID: 1422045277}
   - {fileID: 1973387345}
   - {fileID: 1644188402}
+  - {fileID: 306774133}
   m_Father: {fileID: 188031221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &530318584 stripped

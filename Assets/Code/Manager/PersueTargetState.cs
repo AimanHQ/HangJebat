@@ -13,24 +13,33 @@ namespace HQ
             //if within range , switch combat stance
             //if target out range , return state and chase target
             if (enemyManager.isPerfomingAction)
-                return this;
+            {
+                enemyAnimatorHandler.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
+                return this;   
+            }
 
-            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-            enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
-            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
 
-            if (enemyManager.distanceFromTarget > enemyManager.maximumAttackRange)
+            if (distanceFromTarget > enemyManager.maximumAttackRange)
             {
                 enemyAnimatorHandler.anim.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
             }
 
 
             HandleRotateTowardTarget(enemyManager);
-            //transform.position = new Vector3(transform.position.x, NavMeshAgent.transform.position.y, transform.position.z);
+
+            // Update the enemy's position to match the NavMeshAgent's Y position
+            Vector3 enemyPosition = enemyManager.transform.position;
+            enemyPosition.y = enemyManager.NavMeshAgent.transform.position.y;
+            enemyManager.transform.position = enemyPosition;
+
+            // Keep the NavMeshAgent's local position at zero (to prevent it from affecting the Y-position)
             enemyManager.NavMeshAgent.transform.localPosition = Vector3.zero;
             enemyManager.NavMeshAgent.transform.localRotation = Quaternion.identity;
 
-            if (enemyManager.distanceFromTarget <= enemyManager.maximumAttackRange)
+            if (distanceFromTarget <= enemyManager.maximumAttackRange)
             {
                 return combatStanceState;
             }
@@ -60,13 +69,29 @@ namespace HQ
             //rotate with pathfinding navmesh
             else 
             {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.NavMeshAgent.desiredVelocity);
-                Vector3 targetVelocity =enemyManager.enemyRB.velocity;
+            enemyManager.NavMeshAgent.enabled = true;
+            enemyManager.NavMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
 
-                enemyManager.NavMeshAgent.enabled = true;
-                enemyManager.NavMeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-                enemyManager.enemyRB.velocity = targetVelocity;
-                enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, enemyManager.NavMeshAgent.transform.rotation, enemyManager.rotationspeed / Time.deltaTime);
+            float rotationToApplyToDynamicEnemy = Quaternion.Angle(enemyManager.transform.rotation, Quaternion.LookRotation(enemyManager.NavMeshAgent.desiredVelocity.normalized));
+            if (distanceFromTarget > 5) enemyManager.NavMeshAgent.angularSpeed = 500f;
+            else if (distanceFromTarget < 5 && Mathf.Abs(rotationToApplyToDynamicEnemy) < 30) enemyManager.NavMeshAgent.angularSpeed = 50f;
+            else if (distanceFromTarget < 5 && Mathf.Abs(rotationToApplyToDynamicEnemy) > 30) enemyManager.NavMeshAgent.angularSpeed = 500f;
+
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+            Quaternion rotationToApplyToStaticEnemy = Quaternion.LookRotation(targetDirection);
+
+
+            if (enemyManager.NavMeshAgent.desiredVelocity.magnitude > 0)
+            {
+                enemyManager.NavMeshAgent.updateRotation = false;
+                enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation,
+                Quaternion.LookRotation(enemyManager.NavMeshAgent.desiredVelocity.normalized), enemyManager.NavMeshAgent.angularSpeed * Time.deltaTime);
+            }
+            else
+            {
+                enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation, rotationToApplyToStaticEnemy, enemyManager.NavMeshAgent.angularSpeed * Time.deltaTime);
+            }
             }
         }
     }

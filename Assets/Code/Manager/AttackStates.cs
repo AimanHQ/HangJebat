@@ -17,6 +17,7 @@ namespace HQ
             //set recovery time  to attack recovery time 
             //return combat state
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
 
 
@@ -26,15 +27,15 @@ namespace HQ
             if (currentAttack != null)
             {
                 //if close to enemy to perform current attack , get new attack
-                if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceNeedToAttack)
+                if (distanceFromTarget < currentAttack.minimumDistanceNeedToAttack)
                 {
                     return this;
                 }
                 //if close enough to attack, let proceed
-                else if (enemyManager.distanceFromTarget < currentAttack.maximumDistanceNeedToAttack)
+                else if (distanceFromTarget < currentAttack.maximumDistanceNeedToAttack)
                 {
                     //if our ebnemy is within our attack viewable angle, we attack 
-                    if (enemyManager.viewableAngle <= currentAttack.maximumAttackAngle && enemyManager.viewableAngle 
+                    if (viewableAngle <= currentAttack.maximumAttackAngle && viewableAngle 
                         >= currentAttack.minimumAttackAngle)
                     {
                         if (enemyManager.currentRecoveryTime <= 0 && enemyManager.isPerfomingAction == false)
@@ -62,14 +63,14 @@ namespace HQ
         {
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-            enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
 
             int maxScore = 0;
 
             for (int i = 0; i < enemyattacks.Length; i++)
             {
                 EnemyAttack enemyAttack = enemyattacks[i];
-                if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeedToAttack && enemyManager.distanceFromTarget
+                if (distanceFromTarget <= enemyAttack.maximumDistanceNeedToAttack && distanceFromTarget
                     >= enemyAttack.minimumDistanceNeedToAttack)
                 {
                     if (viewableAngle <= enemyAttack.maximumAttackAngle
@@ -86,7 +87,7 @@ namespace HQ
             for (int i = 0; i <  enemyattacks.Length; i++)
             {
                 EnemyAttack enemyAttack = enemyattacks[i];
-                if (enemyManager.distanceFromTarget <= enemyAttack.maximumDistanceNeedToAttack && enemyManager.distanceFromTarget
+                if (distanceFromTarget <= enemyAttack.maximumDistanceNeedToAttack && distanceFromTarget
                     >= enemyAttack.minimumDistanceNeedToAttack)
                 {
                     if (viewableAngle <= enemyAttack.maximumAttackAngle

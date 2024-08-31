@@ -15,14 +15,14 @@ namespace HQ
             //if player run out range, return persue target
 
             //potential circle player or walk around them
-            enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
             
             //check attack range 
-            if (enemyManager.currentRecoveryTime <= 0 && enemyManager.distanceFromTarget <= enemyManager.maximumAttackRange)
+            if (enemyManager.currentRecoveryTime <= 0 && distanceFromTarget <= enemyManager.maximumAttackRange)
             {
                 return attackStates;
             }
-            else if (enemyManager.distanceFromTarget > enemyManager.maximumAttackRange)
+            else if (distanceFromTarget > enemyManager.maximumAttackRange)
             {
                 return persueTargetState;
             }

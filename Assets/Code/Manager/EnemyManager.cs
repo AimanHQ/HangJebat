@@ -19,8 +19,7 @@ namespace HQ
         public Rigidbody enemyRB;
 
         public bool isPerfomingAction;
-        public float distanceFromTarget;
-        public float yOffset = 15;
+        public bool isInteracting;
         public float rotationspeed = 70;
         public float maximumAttackRange = 1.5f;
 
@@ -28,7 +27,6 @@ namespace HQ
         //higher/lower angle are, greater the enemy fov is to detect you
         public float maximumDetectionAngle = 40;
         public float MinimumDetectionAngle = -40;
-        public float viewableAngle;
         public float detectionRadius = 20;
         public float currentRecoveryTime = 0;
         private void Awake()
@@ -49,6 +47,8 @@ namespace HQ
         private void Update()
         {
             HandleRecoveryTime();
+
+            isInteracting = enemyAnimatorHandler.anim.GetBool("IsInteract");
         }
 
         private void FixedUpdate()
