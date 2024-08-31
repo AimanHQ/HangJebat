@@ -8,6 +8,7 @@ namespace HQ
     public class WeaponHolderSlot : MonoBehaviour
     {
         public Transform parrentoverride;
+        public WeaponItems currentWeapon;
         public bool islefthandslot;
         public bool issrighthandslot;
 

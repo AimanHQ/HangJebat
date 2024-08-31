@@ -6,6 +6,7 @@ namespace HQ
 {
     public class WeaponSlotManager : MonoBehaviour
     {
+        PlayerManager playerManager;
         WeaponHolderSlot lefthandslot;
         WeaponHolderSlot righthandslot;
 
@@ -17,6 +18,7 @@ namespace HQ
 
         private void Awake()
         {
+            playerManager = GetComponentInParent<PlayerManager>();
             playerStats = GetComponentInParent<PlayerStats>();
 
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
@@ -36,11 +38,13 @@ namespace HQ
         {
             if (isleft) 
             {
+                lefthandslot.currentWeapon = weaponItems;
                 lefthandslot.LoadWeaponModel(weaponItems);
                 LoadLeftweapondamagecollider();
             }
             else 
             {
+                righthandslot.currentWeapon =  weaponItems;
                 righthandslot.LoadWeaponModel(weaponItems);
                 Loadrightweapondamagecollider();
             }
@@ -57,24 +61,22 @@ namespace HQ
             righthanddamagecollider = righthandslot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
         }
 
-        public void Openrightdamagecollider()
+        public void OpenDamageCollider()
         {
-            righthanddamagecollider.EnableDamageCollider();
+            if (playerManager.isUsingRightHand)
+            {
+                righthanddamagecollider.EnableDamageCollider();
+            }
+            else if (playerManager.isUsingLeftHand)
+            {
+                lefthanddamagecollider.EnableDamageCollider();  
+            }
         }
-
-        public void Openleftdamagecollider()
-        {
-            lefthanddamagecollider.EnableDamageCollider();
-        }
-
-        public void Closerightdamagecollider()
+    
+        public void CloseDamageCollider()
         {
             righthanddamagecollider.DisableDamageCollider();
-        }
-
-        public void Closeleftdamagecollider()
-        {
-            lefthanddamagecollider.DisableDamageCollider();
+            //lefthanddamagecollider.DisableDamageCollider(); 
         }
         #endregion
    

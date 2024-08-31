@@ -8,11 +8,18 @@ namespace HQ
     {
         EnemyManager enemyManager;
         EnemyAnimatorHandler enemyAnimatorHandler;
+        public CapsuleCollider charactercollider;   
+        public CapsuleCollider charactercollionblocker;
 
         private  void Awake()
         {
             enemyManager = GetComponent<EnemyManager>();
             enemyAnimatorHandler = GetComponentInChildren<EnemyAnimatorHandler>();
+        }
+
+        private void Start()
+        {
+            Physics.IgnoreCollision(charactercollider, charactercollionblocker, true);
         }
     }
 }

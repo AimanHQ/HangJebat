@@ -38,6 +38,9 @@ namespace HQ {
         float rotationspeed = 10;
         [SerializeField] float fallingspeed = 45;
 
+        public CapsuleCollider charactercollider;   
+        public CapsuleCollider charactercollionblocker;
+
         void Start()
         {
             playerManager = GetComponent<PlayerManager>();
@@ -50,6 +53,8 @@ namespace HQ {
 
             playerManager.isGrounded = true;
             ignoreforgroundcheck = ~(1 << 8 | 1 << 11);
+
+            Physics.IgnoreCollision(charactercollider, charactercollionblocker, true);
         }
 
         #region movement

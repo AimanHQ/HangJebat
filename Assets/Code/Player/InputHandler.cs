@@ -26,6 +26,7 @@ namespace HQ
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         CameraHandler cameraHandler;
+        AnimatorHandler animatorHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -34,6 +35,7 @@ namespace HQ
         {
             playerAttacker =  GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
         public void OnEnable()
         {
@@ -95,6 +97,7 @@ namespace HQ
 
             //RB input handle right hand weapon light attack
             if(rb_input) {
+                animatorHandler.anim.SetBool("isUsingRightHand", true);
                 playerAttacker.HandleLightAttack(playerInventory.rightweapon);
             }
 

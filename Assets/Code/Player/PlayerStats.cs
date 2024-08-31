@@ -44,6 +44,10 @@ namespace HQ
 
         public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
+
+
             currenthealth = currenthealth - damage;
 
             healthBar.SetCurrentHealth(currenthealth);
@@ -52,6 +56,7 @@ namespace HQ
             if (currenthealth <= 0) {
                 currenthealth = 0;
                 animatorHandler.PlayTargetAnimation("Dying Backwards", true);
+                isDead = true;
                 //handle player death
             }
         }

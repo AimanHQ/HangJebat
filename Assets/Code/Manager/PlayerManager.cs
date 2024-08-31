@@ -19,6 +19,8 @@ namespace HQ
         public bool IsSprinting;
         public bool isInAir;
         public bool isGrounded;
+        public bool isUsingRightHand;   
+        public bool isUsingLeftHand;
 
 
         private void Awake()
@@ -42,6 +44,8 @@ namespace HQ
             player.HandleMovement(delta);
             player.HandleRollandSprint(delta);
             player.HandleFalling(delta, player.moveDirection);
+            isUsingRightHand = anim.GetBool("isUsingRightHand");
+            isUsingLeftHand = anim.GetBool("isUsingLeftHand");
 
             CheckForInteractableObject();
         }

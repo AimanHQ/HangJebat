@@ -26,6 +26,8 @@ namespace HQ
 
         public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
             currenthealth = currenthealth - damage;
 
             animator.Play("Injured Walk Backwards");
@@ -33,6 +35,7 @@ namespace HQ
             if (currenthealth <= 0) {
                 currenthealth = 0;
                 animator.Play("Dying Backwards");
+                isDead = true;
                 //handle enemy death
             }
         }
