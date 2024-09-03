@@ -33,7 +33,7 @@ namespace HQ
 
         private void Awake()
         {
-            playerAttacker =  GetComponent<PlayerAttacker>();
+            playerAttacker =  GetComponentInChildren<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
@@ -97,8 +97,7 @@ namespace HQ
 
             //RB input handle right hand weapon light attack
             if(rb_input) {
-                animatorHandler.anim.SetBool("isUsingRightHand", true);
-                playerAttacker.HandleLightAttack(playerInventory.rightweapon);
+                playerAttacker.HandleRBAction();
             }
 
             if (rt_input) {

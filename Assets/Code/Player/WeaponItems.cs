@@ -19,5 +19,10 @@ namespace HQ
         public int baseStamina;
         public float lightAttackMultiplier;
         public float HeavyAttackMultiplier;
+
+        [Header ("weapom type")]
+        public bool isMagicSpell;
+        public bool isFaithSpell;
+        public bool isMeleeWerapon;
     }
 }

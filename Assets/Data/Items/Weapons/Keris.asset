@@ -22,3 +22,6 @@ MonoBehaviour:
   baseStamina: 20
   lightAttackMultiplier: 1
   HeavyAttackMultiplier: 2
+  isMagicSpell: 0
+  isFaithSpell: 0
+  isMeleeWerapon: 1

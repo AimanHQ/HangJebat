@@ -7,6 +7,8 @@ namespace HQ
     public class PlayerInventory : MonoBehaviour
     {
         WeaponSlotManager weaponSlotManager;
+
+        public SpellItems currentSpell;
         public WeaponItems rightweapon;
         public WeaponItems leftweapon;
         public WeaponItems unarmedWeapon;

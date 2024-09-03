@@ -65,5 +65,17 @@ namespace HQ
             currentstamina = currentstamina - damage;
             staminaBar.SetCurrentStamina(currentstamina);
         }
+
+        public void healPlayer(int healAmount)
+        {
+            currenthealth = currenthealth + healAmount;
+
+            if (currenthealth  > MaxHealth)
+            {
+                currenthealth = MaxHealth;
+            }
+
+            healthBar.SetCurrentHealth(currenthealth);
+        }
     }
 }
