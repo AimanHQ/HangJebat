@@ -11,6 +11,10 @@ namespace HQ
 
         public string spellAnimation;
 
+        [Header("Spell Cost")]
+        public int ManaCost;
+        
+
         [Header("Spell type")]
         public bool isFaithSpell;
         public bool isMagicSpell;

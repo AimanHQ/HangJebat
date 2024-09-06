@@ -8,6 +8,7 @@ namespace HQ
     {
         public HealthBar healthBar;
         public StaminaBar staminaBar;
+        public ManaBar manaBar;
         
 
         AnimatorHandler animatorHandler;
@@ -16,6 +17,7 @@ namespace HQ
         {
             healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
+            manaBar = FindObjectOfType<ManaBar>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
         void Start()
@@ -27,6 +29,11 @@ namespace HQ
             maxStamina = SetMaxHealthFromHealthLevel();
             currentstamina = maxStamina;
             staminaBar.SetMaxStamina(maxStamina);
+
+            MaxManalevel = SetMaxManaFromManaLevel();
+            currentMana = MaxManalevel;
+            manaBar.SetMaxMana(MaxManalevel);
+            manaBar.SetCurrentMana(currentMana);
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -40,6 +47,12 @@ namespace HQ
         {
             maxStamina = staminalevel * 10;
             return maxStamina;
+        }
+
+        private int SetMaxManaFromManaLevel()
+        {
+            MaxManalevel = ManaLevel * 10;
+            return MaxManalevel;
         }
 
         public void TakeDamage(int damage)

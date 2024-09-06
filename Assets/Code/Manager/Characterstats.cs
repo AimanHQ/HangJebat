@@ -14,6 +14,10 @@ namespace HQ
         public int staminalevel = 10;
         public int maxStamina;
 
+        public int ManaLevel = 10;
+        public int MaxManalevel;
+        public int currentMana;
+
         public bool isDead;
     }
 }
