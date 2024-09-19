@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniVRM10;
 
 namespace HQ
 {
@@ -52,13 +53,24 @@ namespace HQ
 
         private void performRBmagicAction(WeaponItems weapon)
         {
+            if (playerManager.isInteracting)
+                return;
+
             if (weapon.isFaithSpell)
             {
                 if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
                 {
                     //check for mana
                     //attempt to cast spell
+
+                    if (playerStats.currentMana >= playerInventory.currentSpell.ManaCost)
+                    {
                     playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                    }
+                    else 
+                    {
+                        animatorHandler.PlayTargetAnimation("shrug", true);
+                    }
                 }
             }
         }

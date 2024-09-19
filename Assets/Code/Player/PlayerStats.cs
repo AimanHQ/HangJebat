@@ -90,5 +90,16 @@ namespace HQ
 
             healthBar.SetCurrentHealth(currenthealth);
         }
+
+        public void DeductMana(int mana)
+        {   
+            currentMana = currentMana - mana;
+
+            if (currentMana < 0)
+            {
+                currentMana = 0;
+            }
+            manaBar.SetCurrentMana(currentMana);
+        }
     }
 }

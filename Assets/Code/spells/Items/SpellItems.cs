@@ -31,6 +31,7 @@ namespace HQ
         public virtual void SuccessfulyCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
             Debug.Log ("succes at cast spell");
+            playerStats.DeductMana(ManaCost);
         }
     }
 }
