@@ -27,6 +27,7 @@ namespace HQ
         PlayerInventory playerInventory;
         CameraHandler cameraHandler;
         AnimatorHandler animatorHandler;
+        PlayerStats playerStats;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -34,6 +35,7 @@ namespace HQ
         private void Awake()
         {
             playerAttacker =  GetComponentInChildren<PlayerAttacker>();
+            playerStats = GetComponent<PlayerStats>();
             playerInventory = GetComponent<PlayerInventory>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
@@ -43,6 +45,8 @@ namespace HQ
                 inputAction = new PlayerControl();
                 inputAction.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
                 inputAction.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+                inputAction.PlayerActions.Roll.performed += i => b_input = true;
+                inputAction.PlayerActions.Roll.canceled += i => b_input = false;
             }
 
             inputAction.Enable();
@@ -73,13 +77,23 @@ namespace HQ
     
         private void HandleRollInput(float delta)
         {
-            b_input = inputAction.PlayerActions.Roll.inProgress;
-
             if(b_input) {
                 rollInputTimer += delta;
-                sprintFlag = true;
+
+                if (playerStats.currentstamina <= 0)
+                {
+                    b_input = false;
+                    sprintFlag = false;
+                }
+
+                if (moveAmount  > 0.5f && playerStats.currentstamina > 0)
+                {
+                    sprintFlag = true;
+                }
             }
             else {
+                sprintFlag = false;
+                
                 if (rollInputTimer > 0 && rollInputTimer < 0.5f)
                 {
                     sprintFlag = false;

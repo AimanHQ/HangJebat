@@ -47020,7 +47020,10 @@ MonoBehaviour:
   isDead: 0
   healthBar: {fileID: 2035223527}
   staminaBar: {fileID: 1120310525}
-  manaBar: {fileID: 0}
+  manaBar: {fileID: 310808661}
+  staminaRegenRate: 5
+  staminaRegenCooldown: 2
+  staminaRegenTimer: 0
 --- !u!114 &1886831398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47088,6 +47091,7 @@ MonoBehaviour:
   sprintSpeed: 7
   rotationspeed: 10
   fallingspeed: 80
+  rollStaminaCost: 15
   charactercollider: {fileID: 1886831403}
   charactercollionblocker: {fileID: 2122476102}
 --- !u!114 &1886831401

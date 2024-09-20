@@ -9,7 +9,6 @@ namespace HQ
         public HealthBar healthBar;
         public StaminaBar staminaBar;
         public ManaBar manaBar;
-        
 
         AnimatorHandler animatorHandler;
 

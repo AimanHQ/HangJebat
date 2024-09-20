@@ -21,11 +21,17 @@ namespace HQ
         }
         public void HandleLightAttack(WeaponItems weapon)
         {
+            if (playerStats.currentstamina <= 0)
+                return;
+
             animatorHandler.PlayTargetAnimation(weapon.Oh_Light_Attack1, true);
         }
 
         public void HandleHeavyAttack(WeaponItems weapon)
         {
+            if (playerStats.currentstamina <= 0)
+                return;
+                
             animatorHandler.PlayTargetAnimation(weapon.Oh_Heavy_Attack1, true);
         }
         #region  input action

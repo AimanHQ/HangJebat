@@ -8,6 +8,7 @@ namespace HQ {
     public class Player : MonoBehaviour
     {
         PlayerManager playerManager;
+        PlayerStats playerStats;
         Transform cameraObject;
         InputHandler inputHandler;
         public Vector3 moveDirection;
@@ -38,19 +39,28 @@ namespace HQ {
         float rotationspeed = 10;
         [SerializeField] float fallingspeed = 45;
 
+        [Header("stamina Cost")]
+        [SerializeField]
+        int rollStaminaCost = 15;
+        int sprintStaminaCost = 1;
+
         public CapsuleCollider charactercollider;   
         public CapsuleCollider charactercollionblocker;
 
-        void Start()
+        private void Awake()
         {
             playerManager = GetComponent<PlayerManager>();
+            playerStats = GetComponent<PlayerStats>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+        }
+
+        void Start()
+        {
             cameraObject = Camera.main.transform;
             myTransform = transform;
             animatorHandler.Initialize();
-
             playerManager.isGrounded = true;
             ignoreforgroundcheck = ~(1 << 8 | 1 << 11);
 
@@ -101,6 +111,7 @@ namespace HQ {
                 speed = sprintSpeed;
                 playerManager.IsSprinting = true;
                 moveDirection *= speed;
+                playerStats.TakeStaminaDamage(sprintStaminaCost);
             }
             else {
                 if (inputHandler.moveAmount < 0.5f) {
@@ -126,6 +137,10 @@ namespace HQ {
             if(animatorHandler.anim.GetBool("IsInteract")) 
                 return;
 
+            //check if have stamina , if not return 
+            if (playerStats.currentstamina <= 0)
+                return;
+
             if (inputHandler.RollFlag) {
                 moveDirection = cameraObject.forward * inputHandler.vertical;
                 moveDirection += cameraObject.right * inputHandler.horizontal;
@@ -135,6 +150,7 @@ namespace HQ {
                     moveDirection.y = 0;
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     myTransform.rotation = rollRotation;
+                    playerStats.TakeStaminaDamage(rollStaminaCost);
                 }
                 else {
                     animatorHandler.PlayTargetAnimation("Stepback", true);
