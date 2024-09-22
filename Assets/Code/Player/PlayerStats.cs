@@ -9,6 +9,8 @@ namespace HQ
         public HealthBar healthBar;
         public StaminaBar staminaBar;
         public ManaBar manaBar;
+        public float staminaRegenRate = 0.5f; // Amount of stamina to regenerate per second
+
 
         AnimatorHandler animatorHandler;
 
@@ -99,6 +101,18 @@ namespace HQ
                 currentMana = 0;
             }
             manaBar.SetCurrentMana(currentMana);
+        }
+
+        public void RegenMana(int staminaRegenRate)
+        {
+            currentstamina = currentstamina + staminaRegenRate;
+
+            if (currentstamina > maxStamina)
+            {
+                currentstamina = maxStamina;
+            }
+
+            staminaBar.SetCurrentStamina(currentstamina);
         }
     }
 }

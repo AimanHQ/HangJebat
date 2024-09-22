@@ -44,6 +44,10 @@ namespace HQ {
         int rollStaminaCost = 15;
         int sprintStaminaCost = 1;
 
+        [Header("stamina regen")]
+        [SerializeField]
+        int staminaregen = 1;
+
         public CapsuleCollider charactercollider;   
         public CapsuleCollider charactercollionblocker;
 
@@ -120,6 +124,8 @@ namespace HQ {
                 else {
                 moveDirection *= speed;
                 }
+
+                playerStats.RegenMana(staminaregen);
             }
 
             Vector3 projectedvelocity = Vector3.ProjectOnPlane(moveDirection, normalVec);
