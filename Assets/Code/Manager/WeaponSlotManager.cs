@@ -15,11 +15,13 @@ namespace HQ
         public WeaponItems attackingweapon;
 
         PlayerStats playerStats;
+        PlayerEffectManager playerEffectManager;
 
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
             playerStats = GetComponentInParent<PlayerStats>();
+            playerEffectManager = GetComponent<PlayerEffectManager>();
 
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in WeaponHolderSlots) 
@@ -54,11 +56,13 @@ namespace HQ
         private void LoadLeftweapondamagecollider()
         {
             lefthanddamagecollider = lefthandslot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+            playerEffectManager.leftWeaponFX = lefthandslot.currentweaponmodel.GetComponentInChildren<WeaponFX>();
         }
 
         private void Loadrightweapondamagecollider()
         {
             righthanddamagecollider = righthandslot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+            playerEffectManager.rightWeaponFX = righthandslot.currentweaponmodel.GetComponentInChildren<WeaponFX>();
         }
 
         public void OpenDamageCollider()

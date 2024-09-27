@@ -11,6 +11,7 @@ namespace HQ
         PlayerInventory playerInventory;
         PlayerManager playerManager;
         PlayerStats playerStats;
+        PlayerEffectManager playerEffectManager;
 
         private void Awake()
         {
@@ -18,6 +19,7 @@ namespace HQ
             playerManager = GetComponentInParent<PlayerManager>();
             playerStats = GetComponentInParent<PlayerStats>();
             playerInventory = GetComponentInParent<PlayerInventory>();
+            playerEffectManager = GetComponent<PlayerEffectManager>();
         }
         public void HandleLightAttack(WeaponItems weapon)
         {
@@ -55,6 +57,9 @@ namespace HQ
         {
             animatorHandler.anim.SetBool("isUsingRightHand", true);
             HandleLightAttack(playerInventory.rightweapon);
+
+            //play fx
+            playerEffectManager.PlayWeaponFx(false);    
         }
 
         private void performRBmagicAction(WeaponItems weapon)

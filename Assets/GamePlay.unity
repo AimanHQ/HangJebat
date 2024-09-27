@@ -47022,8 +47022,6 @@ MonoBehaviour:
   staminaBar: {fileID: 1120310525}
   manaBar: {fileID: 310808661}
   staminaRegenRate: 5
-  staminaRegenCooldown: 2
-  staminaRegenTimer: 0
 --- !u!114 &1886831398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47092,6 +47090,7 @@ MonoBehaviour:
   rotationspeed: 10
   fallingspeed: 80
   rollStaminaCost: 15
+  staminaregen: 1
   charactercollider: {fileID: 1886831403}
   charactercollionblocker: {fileID: 2122476102}
 --- !u!114 &1886831401
@@ -53071,6 +53070,7 @@ GameObject:
   - component: {fileID: 858830976}
   - component: {fileID: 858830975}
   - component: {fileID: 5866666020295347412}
+  - component: {fileID: 5866666020295347413}
   m_Layer: 9
   m_Name: HangJebat
   m_TagString: Untagged
@@ -54140,6 +54140,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7d98d57482efb4daa5e84bc42384cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5866666020295347413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147548326931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d90cffbf4639df4dbbf82baa51daa1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeaponFX: {fileID: 0}
+  leftWeaponFX: {fileID: 0}
+  currentparticleFx: {fileID: 0}
+  instatiateFX: {fileID: 0}
+  AmountToBeHeal: 0
 --- !u!4 &5920399810907395029
 Transform:
   m_ObjectHideFlags: 0
