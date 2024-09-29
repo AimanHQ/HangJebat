@@ -7,12 +7,18 @@ namespace HQ
     public class EnemyAnimatorHandler : AnimatorManager
     {
         EnemyManager enemyManager;
+        EnemyFxManager enemyFxManager;
         private void Awake()
         {
             anim = GetComponent<Animator>();
             enemyManager = GetComponentInParent<EnemyManager>();
+            enemyFxManager = GetComponent<EnemyFxManager>();
         }
 
+        public void PlayWeaponTrailFX()
+        {
+            enemyFxManager.PlayWeaponFx(false); 
+        }
         private void OnAnimatorMove()
         {
             float delta = Time.deltaTime;

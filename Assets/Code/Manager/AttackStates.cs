@@ -43,6 +43,7 @@ namespace HQ
                             enemyAnimatorHandler.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
                             enemyAnimatorHandler.anim.SetFloat("Horizontal", 0, 0.1f, Time.deltaTime);
                             enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
+                            enemyAnimatorHandler.PlayWeaponTrailFX();
                             enemyManager.isPerfomingAction = true;
                             enemyManager.currentRecoveryTime = currentAttack.recoverytime;
                             currentAttack = null;

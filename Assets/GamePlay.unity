@@ -1157,6 +1157,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 491738714}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de2721dcf44380c4fa0c7bf628df208d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 491738715}
     - targetCorrespondingSourceObject: {fileID: -4728426434207774260, guid: de2721dcf44380c4fa0c7bf628df208d,
         type: 3}
       insertIndex: -1
@@ -6030,7 +6034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &153816744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15334,6 +15338,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   righthandWeapon: {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
   lefthandWeapon: {fileID: 11400000, guid: 6ac352d621931e54188c81d04fa48cc1, type: 2}
+--- !u!114 &491738715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491738709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f95b97e83d0a054ebc4ae8d4b1305a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeaponFX: {fileID: 0}
+  leftWeaponFX: {fileID: 0}
 --- !u!4 &493823253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4074543031912262, guid: e409fe8f8cde0bb48a145edef930645e,
@@ -16225,7 +16243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &547097230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41819,7 +41837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1727776200
 MonoBehaviour:
   m_ObjectHideFlags: 0

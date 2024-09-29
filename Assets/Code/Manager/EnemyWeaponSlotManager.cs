@@ -13,9 +13,11 @@ namespace HQ
 
         DamageCollider leftHandDamageCollider;
         DamageCollider rightHandDamageCollider;
+        EnemyFxManager enemyFxManager;
 
         private void Awake()
         {
+            enemyFxManager = GetComponent<EnemyFxManager>();
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in WeaponHolderSlots) 
             {
@@ -70,10 +72,12 @@ namespace HQ
             if (isleft)
             {
                 leftHandDamageCollider = leftWeaponSlot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+                enemyFxManager.leftWeaponFX = leftWeaponSlot.currentweaponmodel.GetComponentInChildren<WeaponFX>();
             }
             else 
             {
                 rightHandDamageCollider = rightWeaponSlot.currentweaponmodel.GetComponentInChildren<DamageCollider>();
+                enemyFxManager.rightWeaponFX = rightWeaponSlot.currentweaponmodel.GetComponentInChildren<WeaponFX>();
             }
         }
 
