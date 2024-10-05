@@ -11,6 +11,7 @@ namespace HQ {
         PlayerStats playerStats;
         Transform cameraObject;
         InputHandler inputHandler;
+        public FadeController fadeController;
         public Vector3 moveDirection;
 
         [HideInInspector]
@@ -248,6 +249,25 @@ namespace HQ {
         {
             moveDirection = value.Get<Vector2>();
         }
+
+public void TeleportTo(Transform destination)
+{
+    StartCoroutine(TeleportSequence(destination));
+}
+
+private IEnumerator TeleportSequence(Transform destination)
+{
+    // Step 1: Fade to black before teleporting
+    fadeController.FadeIn();
+    yield return new WaitForSeconds(fadeController.fadeDuration); // Wait for fade-in to complete
+
+    // Step 2: Teleport the player
+    transform.position = destination.position;
+
+    // Step 3: Fade back in from black after teleporting
+    fadeController.FadeOut();
+}
+
         
         #endregion
     }

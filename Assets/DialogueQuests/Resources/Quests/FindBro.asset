@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FindBro
   m_EditorClassIdentifier: 
   quest_id: find_bro
-  title: Find Ghost's Brother
-  icon: {fileID: 21300000, guid: a66ef7f3dec30174684aeeb67498f124, type: 3}
-  desc: Find the ghost's brother!
+  title: Find Dang Merduwati
+  icon: {fileID: 21300000, guid: 856a09f70cdc38a45a179a5fceefbbea, type: 3}
+  desc: Find Hang Tuah Mother!
   sort_order: 0
