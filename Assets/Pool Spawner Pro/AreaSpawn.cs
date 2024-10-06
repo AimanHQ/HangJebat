@@ -1,114 +1,112 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaSpawn : MonoBehaviour
+public class MobileFriendlyWaveSpawner : MonoBehaviour
 {
-    [Header("Spawned Object Holder (Optional)")]
-    [SerializeField] private GameObject parentObject;
+    [Header("Enemy Settings")]
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private int totalWaves = 3;
+    [SerializeField] private float timeBetweenWaves = 5f;
+    
+    [Header("Spawn Position Settings")]
+    [SerializeField] private float spawnRadius = 2f; // Range for random spawn positions around spawn point
+    [SerializeField] private float heightOffset = 0.5f; // Adjust spawn height
 
-    [System.Serializable]
-    public class AreaProperties
-    {
-        public Vector2 area;
-        public GameObject objectModel;
-        public Vector3 objectScale;
-        public Vector3 objectRotation;
-        public float objectOffset;
-    }
-    [Header("Area Properties")]
-    [SerializeField] public AreaProperties areaProperties;
-    [Header("Is The Area Modifiable At Runtime?")]
-    [SerializeField] public bool isModify;
+    [Header("Object Pool Settings")]
+    [SerializeField] private int poolSize = 10;
+    [SerializeField] private Transform parentObject; // Parent for organization in hierarchy
 
-    private int calcCount;
-    private int rowCount;
-
-    //This list is used to keep track of all the spawned objects' position
-    //to disable them when they are behing the deactivation point.
-    private Queue<GameObject> objectPool = new Queue<GameObject>();
-    private List<GameObject> spawnedObjects = new List<GameObject>();
-
-    private void Awake()
-    {
-        SetArea();
-        Initialize();
-    }
+    private Queue<GameObject> enemyPool;
+    private int waveIndex = 0;
+    private bool isSpawning = false;
 
     private void Start()
     {
-        if(!isModify)
-        {
-            SpawnInArea();
-        }
+        InitializeObjectPool();
     }
 
     private void Update()
     {
-        if (isModify)
+        if (!isSpawning && waveIndex < totalWaves && IsSpawnPointOutOfView())
         {
-            SpawnInArea();
+            StartCoroutine(SpawnWave());
         }
     }
 
-    //Spawn the objects after calculating the rows and columns.
-    private void SpawnInArea()
+    // Initialize object pool with inactive enemy objects
+    private void InitializeObjectPool()
     {
-        int rCount = 0;
-        int cCount = 0;
-        for (int i = 0; i < calcCount; i++)
+        enemyPool = new Queue<GameObject>();
+
+        for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = SpawnfromPool();
-            obj.SetActive(true);
-            obj.transform.localRotation = Quaternion.Euler(areaProperties.objectRotation);
+            GameObject enemy = Instantiate(enemyPrefab);
+            enemy.SetActive(false);
+
             if (parentObject)
             {
-                obj.transform.localPosition = new Vector3((areaProperties.objectOffset + areaProperties.objectScale.x) * rCount, areaProperties.objectScale.y, (areaProperties.objectOffset + areaProperties.objectScale.z) * cCount);
+                enemy.transform.SetParent(parentObject); // Set parent for better hierarchy organization
             }
-            else
-            {
-                obj.transform.position = new Vector3((areaProperties.objectOffset + areaProperties.objectScale.x) * rCount, areaProperties.objectScale.y, (areaProperties.objectOffset + areaProperties.objectScale.z) * cCount);
-            }
-            rCount++;
-            if(rCount == rowCount)
-            {
-                rCount = 0;
-                cCount++;
-            }
+
+            enemyPool.Enqueue(enemy);
         }
     }
 
-    //Calculate the number of rows and columns based on the area.
-    private void SetArea()
+    // Spawn enemy with randomized position and parent assignment
+    private void SpawnEnemy()
     {
-        rowCount = Mathf.FloorToInt(areaProperties.area.x / (areaProperties.objectScale.x + areaProperties.objectOffset));
-        int _colCount = Mathf.FloorToInt(areaProperties.area.y / (areaProperties.objectScale.z + areaProperties.objectOffset));
-        calcCount = rowCount * _colCount;
-    }
-
-    //Create objects before the game starts to make the ready to be reused.
-    private void Initialize()
-    {
-        for (int i = 0; i < calcCount; i++)
+        if (enemyPool.Count > 0)
         {
-            GameObject obj = Instantiate(areaProperties.objectModel);
-            obj.SetActive(false);
-            if (parentObject)
-            {
-                obj.transform.parent = parentObject.transform;
-            }
-            objectPool.Enqueue(obj);
-            spawnedObjects.Add(obj);
+            GameObject enemy = enemyPool.Dequeue();
+
+            // Calculate random spawn position around the spawn point
+            Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
+            randomOffset.y = 0; // Maintain same Y-axis level for horizontal spawning
+            Vector3 spawnPosition = spawnPoint.position + randomOffset + new Vector3(0, heightOffset, 0);
+
+            enemy.transform.position = spawnPosition;
+            enemy.transform.rotation = spawnPoint.rotation;
+            enemy.SetActive(true);
         }
     }
 
-    //Returns an object from the queue based on the given ID.
-    public GameObject SpawnfromPool()
+    // Return the enemy to the object pool after "defeated"
+    public void ReturnEnemyToPool(GameObject enemy)
     {
-        GameObject objecttoSpawn = objectPool.Dequeue();
+        enemy.SetActive(false);
 
-        objectPool.Enqueue(objecttoSpawn);
-        return objecttoSpawn;
+        // Ensure the enemy is re-parented to the pool for organization
+        if (parentObject)
+        {
+            enemy.transform.SetParent(parentObject);
+        }
+
+        enemyPool.Enqueue(enemy);
+    }
+
+    // Coroutine to spawn a wave of enemies
+    IEnumerator SpawnWave()
+    {
+        isSpawning = true;
+
+        for (int i = 0; i < enemiesPerWave; i++)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(1f); // Optional: Delay between spawns
+        }
+
+        waveIndex++;
+        isSpawning = false;
+    }
+
+    // Check if the camera is not looking at the spawn point
+    private bool IsSpawnPointOutOfView()
+    {
+        Vector3 cameraToSpawn = (spawnPoint.position - Camera.main.transform.position).normalized;
+        float dotProduct = Vector3.Dot(Camera.main.transform.forward, cameraToSpawn);
+        return dotProduct < 0;
     }
 }

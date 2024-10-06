@@ -16,9 +16,10 @@ public class FadeController : MonoBehaviour
         fadeImage.gameObject.SetActive(true); // Make sure the image is active
     }
 
-    public void FadeIn() 
+    // FadeIn now accepts an action (a method) as a callback for teleporting
+    public void FadeIn(System.Action onFadeComplete = null, System.Action onMidway = null) 
     {
-        StartCoroutine(Fade(0f, 1f));  // Fade to black
+        StartCoroutine(Fade(0f, 1f, onFadeComplete, onMidway));  // Fade to black
     }
 
     public void FadeOut() 
@@ -26,7 +27,8 @@ public class FadeController : MonoBehaviour
         StartCoroutine(Fade(1f, 0f));  // Fade from black
     }
 
-    private IEnumerator Fade(float startAlpha, float endAlpha) 
+    // Modified Fade method to accept teleportation trigger midway
+    private IEnumerator Fade(float startAlpha, float endAlpha, System.Action onFadeComplete = null, System.Action onMidway = null) 
     {
         float elapsedTime = 0f;
         Color fadeColor = fadeImage.color;
@@ -39,6 +41,14 @@ public class FadeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             fadeColor.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
             fadeImage.color = fadeColor;
+
+            // Trigger teleport midway through the fade
+            if (elapsedTime >= fadeDuration / 2 && onMidway != null) 
+            {
+                onMidway?.Invoke();
+                onMidway = null; // Ensure the callback is called only once
+            }
+
             yield return null;
         }
 
@@ -50,6 +60,8 @@ public class FadeController : MonoBehaviour
         {
             fadeImage.gameObject.SetActive(false);
         }
+
+        // Invoke the onFadeComplete callback when fade is done
+        onFadeComplete?.Invoke();
     }
 }
-
