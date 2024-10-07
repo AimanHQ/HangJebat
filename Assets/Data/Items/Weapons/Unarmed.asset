@@ -18,4 +18,11 @@ MonoBehaviour:
     type: 3}
   isUnarmed: 1
   Oh_Light_Attack1: lightattack
+  Oh_Light_Attack2: combo_01
   Oh_Heavy_Attack1: Heavyattack
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  HeavyAttackMultiplier: 0
+  isMagicSpell: 0
+  isFaithSpell: 0
+  isMeleeWerapon: 0

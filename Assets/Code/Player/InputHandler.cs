@@ -21,6 +21,7 @@ namespace HQ
         public bool rs;
         public bool RollFlag;
         public bool sprintFlag;
+        public bool ComboFlag;
         public float rollInputTimer;
         PlayerControl inputAction;
         PlayerAttacker playerAttacker;
@@ -28,6 +29,7 @@ namespace HQ
         CameraHandler cameraHandler;
         AnimatorHandler animatorHandler;
         PlayerStats playerStats;
+        PlayerManager playerManager;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -38,6 +40,7 @@ namespace HQ
             playerStats = GetComponent<PlayerStats>();
             playerInventory = GetComponent<PlayerInventory>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            playerManager = GetComponent<PlayerManager>();
         }
         public void OnEnable()
         {
@@ -110,8 +113,18 @@ namespace HQ
             inputAction.PlayerActions.RT.performed += i => rt_input = true;
 
             //RB input handle right hand weapon light attack
-            if(rb_input) {
-                playerAttacker.HandleRBAction();
+            if(rb_input) 
+            {
+                if (playerManager.canDoCombo)
+                {
+                    ComboFlag = true;
+                    playerAttacker.HandleWeaponCombo(playerInventory.rightweapon);
+                    ComboFlag = false;
+                }
+                else 
+                {
+                 playerAttacker.HandleRBAction();
+                }
             }
 
             if (rt_input) {

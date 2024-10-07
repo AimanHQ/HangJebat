@@ -18,6 +18,7 @@ MonoBehaviour:
     type: 3}
   isUnarmed: 0
   Oh_Light_Attack1: lightattack
+  Oh_Light_Attack2: combo_01
   Oh_Heavy_Attack1: Heavyattack
   baseStamina: 20
   lightAttackMultiplier: 1

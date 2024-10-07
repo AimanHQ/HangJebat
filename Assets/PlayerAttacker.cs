@@ -8,10 +8,13 @@ namespace HQ
     public class PlayerAttacker : MonoBehaviour
     {
         AnimatorHandler animatorHandler;
+        InputHandler inputHandler;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
         PlayerStats playerStats;
         PlayerEffectManager playerEffectManager;
+
+        public string LastAttack;
 
         private void Awake()
         {
@@ -20,6 +23,20 @@ namespace HQ
             playerStats = GetComponentInParent<PlayerStats>();
             playerInventory = GetComponentInParent<PlayerInventory>();
             playerEffectManager = GetComponent<PlayerEffectManager>();
+            inputHandler = GetComponentInParent<InputHandler>();
+        }
+
+        public void HandleWeaponCombo(WeaponItems weapon)
+        {
+            if (inputHandler.ComboFlag)
+            {
+            animatorHandler.anim.SetBool("CanDoCombo", false);
+            if (LastAttack == weapon.Oh_Light_Attack1)
+            {
+                animatorHandler.PlayTargetAnimation(weapon.Oh_Light_Attack2, true);
+            }                
+            }
+
         }
         public void HandleLightAttack(WeaponItems weapon)
         {
@@ -27,6 +44,7 @@ namespace HQ
                 return;
 
             animatorHandler.PlayTargetAnimation(weapon.Oh_Light_Attack1, true);
+            LastAttack = weapon.Oh_Light_Attack1;
         }
 
         public void HandleHeavyAttack(WeaponItems weapon)

@@ -95,5 +95,15 @@ namespace HQ
             Vector3 velocity = deltaposition / delta;
             PlayerLocomotion.rigidbody.velocity = velocity;
         }
+
+        public void EnableCombo()
+        {
+            anim.SetBool("CanDoCombo", true);
+        }
+
+        public void DisableCombo()
+        {
+            anim.SetBool("CanDoCombo", false);
+        }
     }
 }

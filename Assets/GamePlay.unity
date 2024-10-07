@@ -50798,6 +50798,7 @@ MonoBehaviour:
   isGrounded: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
+  canDoCombo: 0
 --- !u!114 &1886831400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50852,6 +50853,7 @@ MonoBehaviour:
   rs: 0
   RollFlag: 0
   sprintFlag: 0
+  ComboFlag: 0
   rollInputTimer: 0
 --- !u!54 &1886831402
 Rigidbody:
@@ -58519,6 +58521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7d98d57482efb4daa5e84bc42384cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastAttack: weapon.Oh_Light_Attack1
 --- !u!114 &5866666020295347413
 MonoBehaviour:
   m_ObjectHideFlags: 0

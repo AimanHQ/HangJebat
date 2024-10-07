@@ -21,6 +21,7 @@ namespace HQ
         public bool isGrounded;
         public bool isUsingRightHand;   
         public bool isUsingLeftHand;
+        public bool canDoCombo; 
 
 
         private void Awake()
@@ -39,6 +40,7 @@ namespace HQ
         {
             float delta = Time.deltaTime;
             isInteracting = anim.GetBool("IsInteract");
+            canDoCombo = anim.GetBool("CanDoCombo");
 
             inputHandler.TickInput(delta);
             player.HandleMovement(delta);
