@@ -35,9 +35,6 @@ namespace HQ
             enemyPosition.y = enemyManager.NavMeshAgent.transform.position.y;
             enemyManager.transform.position = enemyPosition;
 
-            // Keep the NavMeshAgent's local position at zero (to prevent it from affecting the Y-position)
-            enemyManager.NavMeshAgent.transform.localPosition = Vector3.zero;
-            enemyManager.NavMeshAgent.transform.localRotation = Quaternion.identity;
 
             if (distanceFromTarget <= enemyManager.maximumAttackRange)
             {

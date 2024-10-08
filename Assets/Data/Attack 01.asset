@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92385c0563ec7445b403f7b37550f51, type: 3}
   m_Name: Attack 01
   m_EditorClassIdentifier: 
-  actionAnimation: lightattack
+  actionAnimation: attack_01
+  canCombo: 1
+  comboAction: {fileID: 11400000, guid: d637013c8baff9045800eda611e56440, type: 2}
   attackscore: 3
   recoverytime: 2
   maximumAttackAngle: 70

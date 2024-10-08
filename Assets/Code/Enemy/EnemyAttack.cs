@@ -7,6 +7,9 @@ namespace HQ
     [CreateAssetMenu(menuName = "a.i/enemyaction/attack action")]
     public class EnemyAttack : EnemyAction
     {
+        public bool canCombo;
+        public EnemyAttack comboAction;
+
         public int attackscore = 3;
         public float recoverytime = 2;
         public float maximumAttackAngle = 40;

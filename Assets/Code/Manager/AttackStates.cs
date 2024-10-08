@@ -9,6 +9,7 @@ namespace HQ
         public CombatStanceState combatStanceState;
         public EnemyAttack[] enemyattacks;
         public EnemyAttack currentAttack;
+        bool isComboing = false;
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
             //select of of many attack based on attack score
@@ -21,8 +22,15 @@ namespace HQ
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
 
 
-            if (enemyManager.isPerfomingAction)
+            if (enemyManager.isPerfomingAction && isComboing ==false)
+            {
                 return combatStanceState;
+            }
+            else if (isComboing)
+            {
+                enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
+                isComboing = false; 
+            }
             
             if (currentAttack != null)
             {
@@ -45,9 +53,18 @@ namespace HQ
                             enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
                             enemyAnimatorHandler.PlayWeaponTrailFX();
                             enemyManager.isPerfomingAction = true;
+
+                            if (currentAttack.canCombo)
+                            {
+                                currentAttack = currentAttack.comboAction;
+                                return this;
+                            }
+                            else
+                            {
                             enemyManager.currentRecoveryTime = currentAttack.recoverytime;
                             currentAttack = null;
-                            return combatStanceState;
+                            return combatStanceState;                                
+                            }
                         }
                     }
                 }

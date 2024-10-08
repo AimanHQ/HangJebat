@@ -50901,10 +50901,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.19244763
+  m_Radius: 0.32
   m_Height: 1.4
   m_Direction: 1
-  m_Center: {x: -0.000000051941555, y: -0.0934422, z: -0.20755197}
+  m_Center: {x: -0.000000051941555, y: -0.03, z: -0.20755197}
 --- !u!4 &1886831404
 Transform:
   m_ObjectHideFlags: 0
@@ -58316,6 +58316,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928706576852146956, guid: b634047f8520d3f4990ee39a89c428bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4004227605489617704, guid: b634047f8520d3f4990ee39a89c428bd,
         type: 3}

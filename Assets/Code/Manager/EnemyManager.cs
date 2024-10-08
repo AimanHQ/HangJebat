@@ -47,13 +47,16 @@ namespace HQ
         private void Update()
         {
             HandleRecoveryTime();
+            HandleStateMachine();
 
             isInteracting = enemyAnimatorHandler.anim.GetBool("IsInteract");
         }
 
         private void FixedUpdate()
         {
-            HandleStateMachine();
+            // Keep the NavMeshAgent's local position at zero (to prevent it from affecting the Y-position)
+            NavMeshAgent.transform.localPosition = Vector3.zero;
+            NavMeshAgent.transform.localRotation = Quaternion.identity;
         }
 
         private void HandleStateMachine()
