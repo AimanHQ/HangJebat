@@ -32,7 +32,7 @@ namespace Scene_Teleportation_Kit.Scripts.teleport
 
         private IEnumerator TeleportToNewScene(string sceneName, Teleportable teleportable) {
             Scene currentScene = SceneManager.GetActiveScene();
-            AsyncOperation newSceneAsyncLoad = SceneManager.LoadSceneAsync(destinationScene.name, LoadSceneMode.Additive);
+            AsyncOperation newSceneAsyncLoad = SceneManager.LoadSceneAsync(destinationScene.name, LoadSceneMode.Single);
 
             while (!newSceneAsyncLoad.isDone) {
                 yield return null;
@@ -41,7 +41,7 @@ namespace Scene_Teleportation_Kit.Scripts.teleport
             SceneManager.MoveGameObjectToScene(teleportable.gameObject, SceneManager.GetSceneByName(sceneName));
             Teleport(teleportable);
 
-            SceneManager.UnloadSceneAsync(currentScene);
+            //SceneManager.UnloadSceneAsync(currentScene);
         }
 
         private void Teleport(Teleportable teleportable) {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e207a509725314f8a9d840dbfc8b08, type: 3}
   m_Name: Fight1
   m_EditorClassIdentifier: 
-  quest_id: find_gift
+  quest_id: follow_arrow
   title: Fight The Royal Guard
   icon: {fileID: 21300000, guid: d7b0770469cbb9344856657f19a08377, type: 3}
   desc: 'Fight The enemy wave!

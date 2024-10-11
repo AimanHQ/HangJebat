@@ -15,8 +15,12 @@ EditorBuildSettings:
     path: Assets/GamePlay.unity
     guid: 27defc54614ef574a82f121580ff798d
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: 52ba8f0493d8f3a4b82478d80e217aad, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 399ccfa1ecd964d4ba5d69789ef95532,
       type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: 4a609965deb3a46418ee6abaafdc8baa, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: cca870e16b49e5b448868d594b7535e2, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 1c9bada867f758049aff8a8ddbfc6589,
