@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using HQ;
+﻿using HQ;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Scene_Teleportation_Kit.Scripts.teleport
 {
     public class Teleporter : MonoBehaviour {
-        public Object destinationScene;
+        public Transform targetPosition;  // Set this to the teleport destination
         public string destSpawnName;
-
 
         void OnTriggerEnter(Collider collider) {
             Teleportable teleportable = collider.GetComponent<Teleportable>();
@@ -23,44 +20,19 @@ namespace Scene_Teleportation_Kit.Scripts.teleport
             }
             teleportable.canTeleport = false;
 
-            if (SceneManager.GetActiveScene().name == destinationScene.name) {
-                Teleport(teleportable);
-            } else {
-                StartCoroutine(TeleportToNewScene(destinationScene.name, teleportable));
-            }
-        }
-
-        private IEnumerator TeleportToNewScene(string sceneName, Teleportable teleportable) {
-            Scene currentScene = SceneManager.GetActiveScene();
-            AsyncOperation newSceneAsyncLoad = SceneManager.LoadSceneAsync(destinationScene.name, LoadSceneMode.Single);
-
-            while (!newSceneAsyncLoad.isDone) {
-                yield return null;
-            }
-
-            SceneManager.MoveGameObjectToScene(teleportable.gameObject, SceneManager.GetSceneByName(sceneName));
+            // Teleport player to the target position in the same scene
             Teleport(teleportable);
-
-            //SceneManager.UnloadSceneAsync(currentScene);
         }
 
         private void Teleport(Teleportable teleportable) {
-            SpawnPoint spawnPoint = FindSpawnPoint(destSpawnName);
-            if (spawnPoint != null) {
-                teleportable.GetComponent<Player>().TeleportTo(spawnPoint.transform);
+            // Check if the target position is valid
+            if (targetPosition != null) {
+                teleportable.GetComponent<Player>().TeleportTo(targetPosition);
+            } else {
+                Debug.LogWarning("Target position for teleport is not set!");
             }
-            teleportable.canTeleport = true;
-        }
 
-        private SpawnPoint FindSpawnPoint(string spawnName) {
-            SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
-            foreach (SpawnPoint spawn in spawnPoints) {
-                SpawnPoint spawnPoint = spawn.GetComponent<SpawnPoint>();
-                if (spawnPoint.spawnName == spawnName) {
-                    return spawnPoint;
-                }
-            }
-            return null;
+            teleportable.canTeleport = true; // Allow further teleportation
         }
     }
 }

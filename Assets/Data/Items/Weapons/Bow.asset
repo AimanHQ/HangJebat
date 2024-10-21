@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa57b0e736102744db994713aedab738, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  itemicon: {fileID: 21300000, guid: 48e8834217915ab45adbfb7ec058b75a, type: 3}
+  itemname: Bow
+  prefabModel: {fileID: 4125901152316854332, guid: 5e527c8adf184044a85710bfb8bf2f7a,
+    type: 3}
+  isUnarmed: 0
+  Oh_Light_Attack1: 
+  Oh_Light_Attack2: 
+  Oh_Heavy_Attack1: 
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  HeavyAttackMultiplier: 0
+  isMagicSpell: 0
+  isFaithSpell: 0
+  isMeleeWerapon: 0
+  isBow: 1

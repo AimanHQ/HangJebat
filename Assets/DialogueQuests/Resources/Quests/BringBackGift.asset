@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BringBackGift
   m_EditorClassIdentifier: 
   quest_id: give_gift
-  title: Give Ghost's Gift
-  icon: {fileID: 21300000, guid: fadd2a5266a473b4687960eb0131a6fd, type: 3}
-  desc: Bring back Ghost's gift!
+  title: Fight2
+  icon: {fileID: 21300000, guid: d7b0770469cbb9344856657f19a08377, type: 3}
+  desc: Kill the Royale Guard!
+  sort_order: 0

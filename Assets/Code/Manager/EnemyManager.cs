@@ -42,6 +42,9 @@ namespace HQ
         private void Start()
         {
             enemyRB.isKinematic = false;
+
+            NavMeshAgent.enabled = true;
+            NavMeshAgent.Warp(transform.position); // Align the character with the terrain
         }
         
         private void Update()

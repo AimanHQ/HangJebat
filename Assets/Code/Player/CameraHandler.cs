@@ -30,6 +30,7 @@ namespace HQ
             myTransform = transform;
             defaultpos = cameraTransform.localPosition.z;
             ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
+            Application.targetFrameRate = 40;
         }
         
         public void followtarget(float delta)

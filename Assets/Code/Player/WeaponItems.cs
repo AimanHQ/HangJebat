@@ -25,5 +25,6 @@ namespace HQ
         public bool isMagicSpell;
         public bool isFaithSpell;
         public bool isMeleeWerapon;
+        public bool isBow;
     }
 }

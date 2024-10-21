@@ -15,7 +15,7 @@ MonoBehaviour:
   actor_id: player
   is_player: 1
   title: Hang Jebat
-  portrait: {fileID: 21300000, guid: 39e6077ae709cfc4b9b1a168f4e46179, type: 3}
+  portrait: {fileID: 21300000, guid: 65234e1f780a34841aa461c075ffaeaa, type: 3}
   animation: {fileID: 0}
   show_bubble: 0
   bubble_offset: {x: 0, y: 2, z: 0}
