@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalWeaponTrail: {fileID: 487641413299400837}
+  playerTransform: {fileID: 7961432097597325046}
 --- !u!1 &7942817081335229895
 GameObject:
   m_ObjectHideFlags: 0

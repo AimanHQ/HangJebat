@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ea64a65dc7f514d84608bd9fa6b23b, type: 3}
+  m_Name: vilager 1
+  m_EditorClassIdentifier: 
+  actor_id: ghostC
+  is_player: 0
+  title: Villager
+  portrait: {fileID: 21300000, guid: bd835511542393d44b51c7f5b2777cf1, type: 3}
+  animation: {fileID: 0}
+  show_bubble: 1
+  bubble_offset: {x: 0, y: 2, z: 0}
+  bubble_size: 1
+  load_dialogue: {fileID: 0}
