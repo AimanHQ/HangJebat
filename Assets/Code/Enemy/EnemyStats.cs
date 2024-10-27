@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace HQ
 {
     public class EnemyStats : Characterstats
     {
-
+        public event Action OnDeath; // Instance-specific event for enemy death
         Animator animator;
+
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
@@ -37,6 +39,10 @@ namespace HQ
                 animator.Play("Dying Backwards");
                 isDead = true;
                 //handle enemy death
+
+
+                // Notify that this enemy has died
+                OnDeath?.Invoke();
             }
         }
 
