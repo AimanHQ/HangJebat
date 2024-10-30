@@ -6,11 +6,26 @@ using UnityEngine.UI;
 
 namespace HQ
 {
-    public class Nextsceneloader : MonoBehaviour
+    public class NextSceneLoader : MonoBehaviour
     {
+        [SerializeField]
+        private string sceneName = "GamePlay"; // Default to "GamePlay" but editable in the Inspector
+
+        private void OnEnable()
+        {
+            LoadNextScene();
+        }
+
         public void LoadNextScene()
         {
-            SceneManager.LoadScene("GamePlay", LoadSceneMode.Single);
+            if (!string.IsNullOrEmpty(sceneName))
+            {
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            }
+            else
+            {
+                Debug.LogWarning("Scene name is empty! Please set a scene name in the Inspector.");
+            }
         }
     }
 }
