@@ -12,6 +12,9 @@ namespace HQ
         public WeaponItems rightweapon;
         public WeaponItems leftweapon;
         public WeaponItems unarmedWeapon;
+        public WeaponItems magicItem; // Add reference to magic item
+        public HealingSpell healingSpell; // Reference to HealingSpell
+
 
         public WeaponItems[] weaponInRightHandslot = new WeaponItems[1];
         public WeaponItems[] weaponInLeftHandslot = new WeaponItems[1];
@@ -67,6 +70,20 @@ namespace HQ
             {
                 rightweapon = unarmedWeapon;
                 weaponSlotManager.LoadWeaponOnSlot(unarmedWeapon, false);
+            }
+        }
+        public void SwitchToMagicItemForHealing()
+        {
+            if (magicItem != null)
+            {
+                rightweapon = magicItem;
+                currentSpell = healingSpell; // Set current spell to HealingSpell
+                weaponSlotManager.LoadWeaponOnSlot(magicItem, false);
+                Debug.Log("Switched right weapon to magicItem for healing.");
+            }
+            else
+            {
+                Debug.LogWarning("Magic item is not assigned in the PlayerInventory inspector.");
             }
         }
     }
