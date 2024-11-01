@@ -15,9 +15,13 @@ namespace HQ
         DamageCollider rightHandDamageCollider;
         EnemyFxManager enemyFxManager;
 
+        private EnemyStats enemyStats;
+
         private void Awake()
         {
             enemyFxManager = GetComponent<EnemyFxManager>();
+            enemyStats = GetComponentInParent<EnemyStats>();
+
             WeaponHolderSlot[] WeaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in WeaponHolderSlots) 
             {
@@ -35,6 +39,9 @@ namespace HQ
         private void Start()
         {
             LoadWeaponOnBothHand();
+
+            // Subscribe to OnDeath event to unequip weapons when the enemy dies
+            enemyStats.OnDeath += UnequipAllWeapons;
         }
 
         public void LoadWeaponOnSlot(WeaponItems weaponItems, bool isleft)
@@ -89,6 +96,20 @@ namespace HQ
         public void CloseDamageCollider()
         {
             rightHandDamageCollider.DisableDamageCollider();
+        }
+
+        // Method to unequip all weapons when the enemy dies
+        private void UnequipAllWeapons()
+        {
+            if (rightWeaponSlot != null)
+            {
+                rightWeaponSlot.UnloadWeaponAndDestroy();
+            }
+            if (leftWeaponSlot != null)
+            {
+                leftWeaponSlot.UnloadWeaponAndDestroy();
+            }
+            Debug.Log("All weapons have been unequipped.");
         }
 
        public void DrainStaminaLightAttack()

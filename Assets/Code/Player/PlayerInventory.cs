@@ -14,7 +14,7 @@ namespace HQ
         public WeaponItems unarmedWeapon;
         public WeaponItems magicItem; // Add reference to magic item
         public HealingSpell healingSpell; // Reference to HealingSpell
-
+        public WeaponItems previousRightWeapon;
 
         public WeaponItems[] weaponInRightHandslot = new WeaponItems[1];
         public WeaponItems[] weaponInLeftHandslot = new WeaponItems[1];
@@ -76,8 +76,9 @@ namespace HQ
         {
             if (magicItem != null)
             {
+                //previousRightWeapon = rightweapon; // Store current weapon
                 rightweapon = magicItem;
-                currentSpell = healingSpell; // Set current spell to HealingSpell
+                currentSpell = healingSpell;
                 weaponSlotManager.LoadWeaponOnSlot(magicItem, false);
                 Debug.Log("Switched right weapon to magicItem for healing.");
             }
@@ -85,6 +86,14 @@ namespace HQ
             {
                 Debug.LogWarning("Magic item is not assigned in the PlayerInventory inspector.");
             }
+        }
+
+        public void RevertToPreviousRightWeapon()
+        {
+            // Ensure "Keris" is the weapon after healing
+            rightweapon = previousRightWeapon; // Set "kerisItem" as the default weapon reference in the inspector or define it in PlayerInventory
+            weaponSlotManager.LoadWeaponOnSlot(rightweapon, false);
+            Debug.Log("Reverted to Keris as the right weapon.");
         }
     }
 }

@@ -5817,7 +5817,7 @@ PrefabInstance:
     - target: {fileID: 114344768413473294, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}
       propertyPath: m_ControlPath
-      value: <Gamepad>/buttonEast
+      value: <Keyboard>/leftShift
       objectReference: {fileID: 0}
     - target: {fileID: 114826362001716654, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}
@@ -36666,7 +36666,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ui_canvas
       value: 
-      objectReference: {fileID: 8180018193686130158, guid: 54702de9a943d8b4a938686672af8966,
+      objectReference: {fileID: 1180542284980685529, guid: cfe499bb5caab3b489f054c2e0b5000f,
         type: 3}
     - target: {fileID: 6778281011747158086, guid: 2d6a2278e87d77c47b3d2b7b2842a3c6,
         type: 3}
@@ -60350,11 +60350,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpell: {fileID: 11400000, guid: e187c0fe0d31bb846a3748824f8ab3c0, type: 2}
-  rightweapon: {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
-  leftweapon: {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
+  rightweapon: {fileID: 11400000, guid: 6ac352d621931e54188c81d04fa48cc1, type: 2}
+  leftweapon: {fileID: 11400000, guid: 6ac352d621931e54188c81d04fa48cc1, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 6ac352d621931e54188c81d04fa48cc1, type: 2}
   magicItem: {fileID: 11400000, guid: 1582bec42e8c4a447a281ca660c68bca, type: 2}
   healingSpell: {fileID: 11400000, guid: e187c0fe0d31bb846a3748824f8ab3c0, type: 2}
+  previousRightWeapon: {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9,
+    type: 2}
   weaponInRightHandslot:
   - {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
   weaponInLeftHandslot:
@@ -60434,6 +60436,7 @@ MonoBehaviour:
   rb_input: 0
   rt_input: 0
   rs: 0
+  healInput: 0
   RollFlag: 0
   sprintFlag: 0
   ComboFlag: 0
@@ -60600,7 +60603,7 @@ PrefabInstance:
     - target: {fileID: 114204224268582166, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114204224268582166, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}
@@ -60660,7 +60663,7 @@ PrefabInstance:
     - target: {fileID: 114344768413473294, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}
       propertyPath: m_ControlPath
-      value: <Gamepad>/buttonEast
+      value: <Keyboard>/q
       objectReference: {fileID: 0}
     - target: {fileID: 114826362001716654, guid: 05f32eddd3e41fd4597ada617b785928,
         type: 3}

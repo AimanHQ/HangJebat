@@ -19,6 +19,7 @@ namespace HQ
         public bool rb_input;
         public bool rt_input;
         public bool rs;
+        public bool healInput; // New variable for healing input
         public bool RollFlag;
         public bool sprintFlag;
         public bool ComboFlag;
@@ -50,6 +51,8 @@ namespace HQ
                 inputAction.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
                 inputAction.PlayerActions.Roll.performed += i => b_input = true;
                 inputAction.PlayerActions.Roll.canceled += i => b_input = false;
+                inputAction.PlayerActions.Heal.performed += i => healInput = true;
+                inputAction.PlayerActions.Heal.canceled += i => healInput = false;
             }
 
             inputAction.Enable();
@@ -67,6 +70,7 @@ namespace HQ
             HandleAttackInput(delta);
             HandleQuickSlotInput();
             HandleInteractableButtonInput();
+            HandleHealInput(); // Add this line
         }
 
         private void moveInput(float delta)
@@ -146,6 +150,16 @@ namespace HQ
             inputAction.PlayerActions.G.performed += inputAction => G_input = true; 
 
 
+        }
+
+        private void HandleHealInput()
+        {
+            if (healInput)
+            {
+                playerInventory.SwitchToMagicItemForHealing(); // Ensure it switches to the healing item
+                playerAttacker.HandleHeal(); // This method should manage healing and triggering the particle effect
+                healInput = false; // Reset heal input after handling it
+            }
         }
     }
 }

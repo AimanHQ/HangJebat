@@ -68,6 +68,12 @@ namespace HQ
                 performRBmagicAction(playerInventory.rightweapon);
             }
         }
+        public void HandleHeal()
+        {
+            playerEffectManager.HealPlayerFromEffect(); // Use your existing method for healing
+            playerInventory.RevertToPreviousRightWeapon(); // Revert back to the previous weapon
+        }
+
         #endregion
 
         #region  attack action

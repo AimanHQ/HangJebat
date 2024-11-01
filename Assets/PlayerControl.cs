@@ -185,6 +185,15 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""64029ef3-dfa9-48ff-88d5-bd40a35c980e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -264,6 +273,17 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""action"": ""G"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d9ca2ad-1c49-4222-803d-68a8f7dc329b"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -281,6 +301,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_PlayerActions_RT = m_PlayerActions.FindAction("RT", throwIfNotFound: true);
         m_PlayerActions_RS = m_PlayerActions.FindAction("RS", throwIfNotFound: true);
         m_PlayerActions_G = m_PlayerActions.FindAction("G", throwIfNotFound: true);
+        m_PlayerActions_Heal = m_PlayerActions.FindAction("Heal", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -401,6 +422,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_RT;
     private readonly InputAction m_PlayerActions_RS;
     private readonly InputAction m_PlayerActions_G;
+    private readonly InputAction m_PlayerActions_Heal;
     public struct PlayerActionsActions
     {
         private @PlayerControl m_Wrapper;
@@ -410,6 +432,7 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         public InputAction @RT => m_Wrapper.m_PlayerActions_RT;
         public InputAction @RS => m_Wrapper.m_PlayerActions_RS;
         public InputAction @G => m_Wrapper.m_PlayerActions_G;
+        public InputAction @Heal => m_Wrapper.m_PlayerActions_Heal;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -434,6 +457,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @G.started += instance.OnG;
             @G.performed += instance.OnG;
             @G.canceled += instance.OnG;
+            @Heal.started += instance.OnHeal;
+            @Heal.performed += instance.OnHeal;
+            @Heal.canceled += instance.OnHeal;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -453,6 +479,9 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
             @G.started -= instance.OnG;
             @G.performed -= instance.OnG;
             @G.canceled -= instance.OnG;
+            @Heal.started -= instance.OnHeal;
+            @Heal.performed -= instance.OnHeal;
+            @Heal.canceled -= instance.OnHeal;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -482,5 +511,6 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnRT(InputAction.CallbackContext context);
         void OnRS(InputAction.CallbackContext context);
         void OnG(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
     }
 }
