@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa57b0e736102744db994713aedab738, type: 3}
+  m_Name: Keris 2
+  m_EditorClassIdentifier: 
+  itemicon: {fileID: 0}
+  itemname: Normal Keris
+  prefabModel: {fileID: 3001975131738346023, guid: e6d7304978f72034bb43fe1a7d884112,
+    type: 3}
+  isUnarmed: 0
+  Oh_Light_Attack1: lightattack
+  Oh_Light_Attack2: combo_01
+  Oh_Heavy_Attack1: Heavyattack
+  baseStamina: 20
+  lightAttackMultiplier: 1
+  HeavyAttackMultiplier: 2
+  isMagicSpell: 0
+  isFaithSpell: 0
+  isMeleeWerapon: 1
+  isBow: 0

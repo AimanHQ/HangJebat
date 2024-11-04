@@ -29016,7 +29016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &925577995
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29027,7 +29027,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9e6c7c84ecaeadc43aca52e955bca7e4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3aa8f1d7601a19d4c88dcaaa262c2e06, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -59086,6 +59086,9 @@ MonoBehaviour:
   rightweapon: {fileID: 11400000, guid: 1582bec42e8c4a447a281ca660c68bca, type: 2}
   leftweapon: {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
   unarmedWeapon: {fileID: 11400000, guid: 6ac352d621931e54188c81d04fa48cc1, type: 2}
+  magicItem: {fileID: 0}
+  healingSpell: {fileID: 0}
+  previousRightWeapon: {fileID: 0}
   weaponInRightHandslot:
   - {fileID: 11400000, guid: 239490f9443444a4192c7f56fae396e9, type: 2}
   weaponInLeftHandslot:
@@ -59165,6 +59168,7 @@ MonoBehaviour:
   rb_input: 0
   rt_input: 0
   rs: 0
+  healInput: 0
   RollFlag: 0
   sprintFlag: 0
   ComboFlag: 0
