@@ -105,5 +105,10 @@ namespace HQ
         {
             anim.SetBool("CanDoCombo", false);
         }
+    
+        public void SetAnimatorParameter(string parameter, float value)
+        {
+        anim.SetFloat(parameter, value);
+        }
     }
 }

@@ -1,73 +1,41 @@
-using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace HQ
 {
     public class RespawnManager : MonoBehaviour
     {
-        public Transform respawnPoint; // Set this to the respawn location in the scene
-        public GameObject player;      // Reference to the player GameObject
-        public GameObject respawnUI;   // UI element for respawn prompt (optional)
-
-        private Characterstats playerStats;
+        [SerializeField] private string respawnSceneName = "RespawnScene"; // Set this to your respawn scene's name
+        [SerializeField] private GameObject respawnPanel; // Assign the respawn UI panel in the Inspector
 
         private void Start()
         {
-            if (player == null)
+            // Ensure the respawn UI is hidden at the start
+            if (respawnPanel != null)
             {
-                Debug.LogError("Player object not assigned to RespawnManager.");
-            }
-
-            playerStats = player.GetComponent<Characterstats>();
-
-            // Ensure UI is hidden at the start
-            if (respawnUI != null)
-            {
-                respawnUI.SetActive(false);
+                respawnPanel.SetActive(false);
             }
         }
 
-        // Method to trigger when the player dies
-        public void HandlePlayerDeath()
+    public void HandlePlayerDeath()
         {
-            // Show respawn UI if exists
-            if (respawnUI != null)
+            // Show the respawn UI when the player dies and pause the game
+            if (respawnPanel != null)
             {
-                respawnUI.SetActive(true);
-            }
-
-            // Alternatively, you could instantly respawn after a short delay without UI
-            StartCoroutine(RespawnAfterDelay(3f));
-        }
-
-        public void RespawnPlayer()
-        {
-            // Hide respawn UI
-            if (respawnUI != null)
-            {
-                respawnUI.SetActive(false);
-            }
-
-            // Move player to the respawn point
-            player.transform.position = respawnPoint.position;
-
-            // Reset player's health or stats as needed
-            playerStats.currenthealth = playerStats.MaxHealth;
-            playerStats.isDead = false;
-
-            // Trigger respawn animation if any (assuming Animator is on the player)
-            Animator animator = player.GetComponentInChildren<Animator>();
-            if (animator != null)
-            {
-                animator.Play("RespawnAnimation"); // Make sure you have a "RespawnAnimation"
+                respawnPanel.SetActive(true);
             }
         }
 
-        private IEnumerator RespawnAfterDelay(float delay)
+        public void OnRespawnButtonClicked()
         {
-            yield return new WaitForSeconds(delay);
-            RespawnPlayer();
+            // Resume game time, hide the respawn UI, and load the respawn scene
+            if (respawnPanel != null)
+            {
+                respawnPanel.SetActive(false);
+            }
+            SceneManager.LoadScene(respawnSceneName);
         }
     }
 }
+

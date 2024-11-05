@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GamePlay 2.unity
     guid: 38133f5cbdc775f4abd3a7c85f2b94ab
+  - enabled: 1
+    path: Assets/RespawnScene.unity
+    guid: af9f53a650ea37d46b5da2290b201cb3
+  - enabled: 1
+    path: Assets/lvl4.unity
+    guid: 070c43f2cb85ef741bc5d95d0462491d
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: 52ba8f0493d8f3a4b82478d80e217aad, type: 2}

@@ -9,10 +9,12 @@ namespace HQ
     {
         public event Action OnDeath; // Instance-specific event for enemy death
         Animator animator;
+        EnemyManager enemyManager;
 
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
+            enemyManager = GetComponent<EnemyManager>();
         }
         void Start()
         {
@@ -38,6 +40,8 @@ namespace HQ
                 currenthealth = 0;
                 animator.Play("Dying Backwards");
                 isDead = true;
+                enemyManager.OnDeath();
+
                 //handle enemy death
 
 

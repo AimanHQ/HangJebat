@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // For scene switching
+using System;
 
 namespace HQ
 {
@@ -10,6 +12,7 @@ namespace HQ
         public StaminaBar staminaBar;
         public ManaBar manaBar;
         public float staminaRegenRate = 0.5f; // Amount of stamina to regenerate per second
+        private RespawnManager respawnManager;
 
 
         AnimatorHandler animatorHandler;
@@ -20,6 +23,7 @@ namespace HQ
             staminaBar = FindObjectOfType<StaminaBar>();
             manaBar = FindObjectOfType<ManaBar>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            respawnManager = FindObjectOfType<RespawnManager>();
         }
         void Start()
         {
@@ -70,7 +74,7 @@ namespace HQ
             if (currenthealth <= 0) {
                 currenthealth = 0;
                 animatorHandler.PlayTargetAnimation("Dying Backwards", true);
-                isDead = true;
+                Die();
                 //handle player death
             }
         }
@@ -113,6 +117,12 @@ namespace HQ
             }
 
             staminaBar.SetCurrentStamina(currentstamina);
+        }
+
+        public void Die()
+        {
+            isDead = true;
+            respawnManager.HandlePlayerDeath(); // Trigger scene switch on death
         }
     }
 }
